@@ -8,3 +8,6 @@ files in `jenkins/` (see `jenkins/README.md`): plugins via the plugin installati
 as Code (`CASC_JENKINS_CONFIG` from a systemd drop-in), setup wizard skipped, local admin with a random password
 kept only in `/var/lib/jenkins/secrets/`. Builds use JDK 17 (`JAVA_HOME` set by JCasC) because the Gradle build
 uses `jvmToolchain(17)`.
+
+## Second automatic build
+This paragraph was pushed to `main` (PR #9) only to give Jenkins a second real change to pick up by polling.
