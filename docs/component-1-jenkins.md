@@ -67,7 +67,7 @@ and the versioned JAR archived (`evidence/component-1/screenshots/`). Build #3 w
   state (`initialAdminPassword`, an `admin` user, no plugins). Fix: stopped the service, removed that generated state and ran `jenkins/install.sh`.
 * **Mac-specific files.** `jenkins.yaml` and `install.sh` used Homebrew paths (`/opt/homebrew/...`) and `~/.jenkins`; rewritten for `/var/lib/jenkins`,
   `/usr/lib/jvm/...` and a systemd drop-in. The permission `Run/Artifacts` in the old matrix does not exist in Jenkins and was removed (anonymous can still view artifacts through Job/Read).
-* **Anonymous cannot open the Configure page** (needs Job/Configure). Screenshots of it were taken logged in as `admin`; `config.xml` is also saved (readable anonymously through Job/ExtendedRead).
+* **Anonymous cannot open the Configure page** (needs Job/Configure). Screenshots of it were taken logged in as `admin`; the raw job XML is also saved. The attempted anonymous XML UI capture redirected to login and is not configuration proof.
 * **PR-number mix-up.** While merging this branch's second PR, the Ansible worker's PR #9 and mine (#10) were confused, and `gh pr merge 9`
   merged the Ansible PR (its branch CI was green; main CI for the merge was green too). It was reported on PR #9 and in the worker report; it is why build #3 exists.
   Lesson: merge by the number printed by `gh pr create`, not by assumption.
@@ -78,3 +78,5 @@ This paragraph was pushed to `main` (PR #10) only to give Jenkins a second real 
 
 ## Reviewer correction
 The original wildcard also archived older versioned JARs left in the Jenkins workspace (build #4 contains four JARs). The post action now selects the exact current version. The old screenshots remain historical evidence; the final review captures show the corrected build. PR #8 merged as `754533a` but build #2 checked out `45b31c9`, the branch tip selected during the polling/merge timing. These are different commits.
+
+Reviewer verification: SCM-triggered build #6 at merge `12d4c3f` finished SUCCESS, published 4 passing tests and archived exactly `bu-campus-api-6-12d4c3f-all.jar` (evidence/review/26 and 27). The earlier About/config XML screenshots 14 and 16 actually show login redirects; their evidence README now labels them honestly.

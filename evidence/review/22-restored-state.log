@@ -1,0 +1,9 @@
+Mon Nov 16 05:41:06 UTC 2026
+hospet
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-55bcc86994-jb7lf   1/1     Running   0          12m
+bu-campus-api-55bcc86994-sx4sg   1/1     Running   0          12m
+bu-campus-api-55bcc86994-vpmc9   1/1     Running   0          12m
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+bu-campus-api   3/3     3            3           15m
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}

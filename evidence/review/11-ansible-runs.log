@@ -1,0 +1,22 @@
+Mon Nov 16 05:39:20 UTC 2026
+hospet
+
+$ rg -A2 'PLAY RECAP' 03-first-run.log
+PLAY RECAP *********************************************************************
+[0;33mhospet[0m                     : [0;32mok=13  [0m [0;33mchanged=8   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ rg -A2 'PLAY RECAP' 04-second-run-idempotent.log
+PLAY RECAP *********************************************************************
+[0;32mhospet[0m                     : [0;32mok=11  [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ rg -A2 'PLAY RECAP' 05-new-version-run.log
+PLAY RECAP *********************************************************************
+[0;33mhospet[0m                     : [0;32mok=13  [0m [0;33mchanged=4   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ rg -A2 'PLAY RECAP' 06-third-run-idempotent-after-upgrade.log
+PLAY RECAP *********************************************************************
+[0;32mhospet[0m                     : [0;32mok=11  [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

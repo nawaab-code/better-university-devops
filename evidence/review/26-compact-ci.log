@@ -1,0 +1,26 @@
+Mon Nov 16 05:44:08 UTC 2026
+hospet
+
+$ curl -fsS http://localhost:8080/job/bu-campus-api/6/consoleText | sed -n '1p;$p'
+Started by an SCM change
+Finished: SUCCESS
+
+$ curl -gfsS 'http://localhost:8080/job/bu-campus-api/6/api/json?tree=number,result,artifacts[fileName]' | python3 -m json.tool
+{
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "artifacts": [
+        {
+            "fileName": "bu-campus-api-6-12d4c3f-all.jar"
+        }
+    ],
+    "number": 6,
+    "result": "SUCCESS"
+}
+
+$ curl -gfsS 'http://localhost:8080/job/bu-campus-api/6/testReport/api/json?tree=passCount,failCount,skipCount' | python3 -m json.tool
+{
+    "_class": "hudson.tasks.junit.TestResult",
+    "failCount": 0,
+    "passCount": 4,
+    "skipCount": 0
+}

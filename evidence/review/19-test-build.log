@@ -1,0 +1,26 @@
+Mon Nov 16 05:39:26 UTC 2026
+hospet
+
+$ tail -22 /home/nawaab/devops-logs/report-gradle.log
+> Task :shadowDistZip SKIPPED
+> Task :assemble
+> Task :buildFatJar
+> Task :compileTestKotlin
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+
+> Task :test
+
+CampusApiTest > createsAnnouncementAndRejectsBlankTitle() PASSED
+
+CampusApiTest > returnsTimetableForKnownSectionOnly() PASSED
+
+CampusApiTest > listsSeededAnnouncements() PASSED
+
+HealthTest > healthReportsUp() PASSED
+
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 16s
+7 actionable tasks: 7 executed

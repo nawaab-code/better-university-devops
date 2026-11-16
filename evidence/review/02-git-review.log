@@ -1,0 +1,24 @@
+Mon Nov 16 05:33:56 UTC 2026
+hospet
+
+$ gh pr list --state merged --limit 9; gh issue list --state closed; git log --oneline --merges -9
+12	k8s: docker image and kubernetes deployment with scaling and rollback	feature/kubernetes-on-vm	MERGED	2026-11-16T05:29:48Z
+11	docs: jenkins write-up and component 1 evidence	docs/jenkins-evidence	MERGED	2026-11-16T05:29:19Z
+10	docs: second polled change for Jenkins	docs/jenkins-second-change	MERGED	2026-11-16T05:23:52Z
+9	ansible: run the role against the hospet VM over ssh	feature/ansible-on-vm	MERGED	2026-11-16T05:23:51Z
+8	jenkins: configure Jenkins on the VM and run the pipeline	feature/jenkins-on-vm	MERGED	2026-11-16T05:23:23Z
+7	ansible: role and playbook deploying the campus api as a systemd service	claude/feature-ansible-deploy-2b3201	MERGED	2026-11-16T04:56:21Z
+6	ci: jenkins pipeline, jcasc config and github actions	claude/feature-jenkins-pipeline-0d2701	MERGED	2026-11-16T04:49:32Z
+1	feat: announcements and timetable endpoints	feature/campus-endpoints	MERGED	2026-11-16T04:38:02Z
+4	CLOSED	DEVOPS-03: Docker image and Kubernetes deployment with scaling and rollback	component-2	2026-11-16T05:29:56Z
+3	CLOSED	DEVOPS-02: Ansible role and playbook that deploys the JAR as a systemd service	component-2	2026-11-16T04:56:38Z
+2	CLOSED	DEVOPS-01: Jenkins pipeline with Gradle, SCM polling, artifact archive, CI enhancements	component-1	2026-11-16T04:54:00Z
+10f841e Merge pull request #12 from nawaab-code/feature/kubernetes-on-vm
+f7334fe Merge remote-tracking branch 'origin/main' into feature/kubernetes-on-vm
+be12e0c Merge pull request #11 from nawaab-code/docs/jenkins-evidence
+8014664 Merge pull request #10 from nawaab-code/docs/jenkins-second-change
+b86e0c9 Merge pull request #9 from nawaab-code/feature/ansible-on-vm
+a6d4105 Merge remote-tracking branch 'origin/main' into feature/ansible-on-vm
+754533a Merge pull request #8 from nawaab-code/feature/jenkins-on-vm
+360c6aa Merge remote-tracking branch 'origin/main' into feature/kubernetes-on-vm
+3dba7fa Merge pull request #7 from nawaab-code/claude/feature-ansible-deploy-2b3201

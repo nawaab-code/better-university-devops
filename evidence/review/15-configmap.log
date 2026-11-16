@@ -1,0 +1,23 @@
+Mon Nov 16 05:39:23 UTC 2026
+hospet
+
+$ sed -n '5,16p;30p;40,41p;47,50p' 10-configmap-change.log
+$ curl -s localhost:30080/health   (before)
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ kubectl patch configmap bu-campus-api-config --type merge -p {"data":{"APP_VERSION":"1.0.1-configmap"}}
+configmap/bu-campus-api-config patched
+
+$ curl -s localhost:30080/health   (env vars are read at container start -> unchanged until restart)
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ kubectl rollout restart deployment/bu-campus-api
+deployment.apps/bu-campus-api restarted
+
+NAME                             READY   STATUS        RESTARTS   AGE
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+$ kubectl exec <pod> -- env | grep -E "PORT|APP_VERSION"
+APP_VERSION=1.0.1-configmap
+PORT=8080
+

@@ -1,0 +1,20 @@
+Mon Nov 16 05:34:00 UTC 2026
+hospet
+
+$ rg -n '200|timed out|probe failed|successfully rolled|image:|undo|3/3' evidence/component-2/kubernetes/{12-rollout-broken,13-rollback-undo}.log
+evidence/component-2/kubernetes/13-rollback-undo.log:5:$ kubectl rollout undo deployment/bu-campus-api
+evidence/component-2/kubernetes/13-rollback-undo.log:12:deployment "bu-campus-api" successfully rolled out
+evidence/component-2/kubernetes/13-rollback-undo.log:16:deployment.apps/bu-campus-api   3/3     3            3           2m58s
+evidence/component-2/kubernetes/13-rollback-undo.log:33:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}  [200]
+evidence/component-2/kubernetes/13-rollback-undo.log:34:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}  [200]
+evidence/component-2/kubernetes/13-rollback-undo.log:35:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}  [200]
+evidence/component-2/kubernetes/13-rollback-undo.log:36:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}  [200]
+evidence/component-2/kubernetes/13-rollback-undo.log:37:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}  [200]
+evidence/component-2/kubernetes/13-rollback-undo.log:38:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}  [200]
+evidence/component-2/kubernetes/12-rollout-broken.log:28:200 200 200 200 200 200 200 200 200 200 
+evidence/component-2/kubernetes/12-rollout-broken.log:37:200 200 200 200 200 200 200 200 200 200 
+evidence/component-2/kubernetes/12-rollout-broken.log:46:200 200 200 200 200 200 200 200 200 200 
+evidence/component-2/kubernetes/12-rollout-broken.log:50:error: timed out waiting for the condition
+evidence/component-2/kubernetes/12-rollout-broken.log:54:deployment.apps/bu-campus-api   3/3     1            3           2m54s
+evidence/component-2/kubernetes/12-rollout-broken.log:76:  Warning  Unhealthy  15s (x3 over 35s)  kubelet            spec.containers{bu-campus-api}: Liveness probe failed: Get "http://10.244.0.13:8080/health": dial tcp 10.244.0.13:8080: connect: connection refused
+evidence/component-2/kubernetes/12-rollout-broken.log:78:  Warning  Unhealthy  0s (x11 over 48s)  kubelet            spec.containers{bu-campus-api}: Readiness probe failed: Get "http://10.244.0.13:8080/health": dial tcp 10.244.0.13:8080: connect: connection refused

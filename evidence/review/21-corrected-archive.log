@@ -1,0 +1,33 @@
+Mon Nov 16 05:41:06 UTC 2026
+hospet
+
+$ Jenkins build 6 API: result and archived files
+{
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "artifacts": [
+        {
+            "fileName": "bu-campus-api-6-12d4c3f-all.jar"
+        }
+    ],
+    "number": 6,
+    "result": "SUCCESS"
+}
+
+$ Build 6 console: cause and final status
+Started by an SCM change
+Checking out git https://github.com/nawaab-code/better-university-devops.git into /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65 to read Jenkinsfile
+The recommended git tool is: NONE
+No credentials specified
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+$ JUnit result summary
+{
+    "_class": "hudson.tasks.junit.TestResult",
+    "failCount": 0,
+    "passCount": 4,
+    "skipCount": 0
+}
