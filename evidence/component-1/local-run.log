@@ -1,0 +1,22 @@
+$ java -version
+java version "22.0.2" 2024-07-16
+Java(TM) SE Runtime Environment (build 22.0.2+9-70)
+Java HotSpot(TM) 64-Bit Server VM (build 22.0.2+9-70, mixed mode, sharing)
+
+$ PORT=8090 java -jar build/libs/bu-campus-api-1.0.0-SNAPSHOT-all.jar &
+
+$ curl -s localhost:8090/health
+{"status":"UP","service":"bu-campus-api","version":"dev"}
+
+$ curl -s localhost:8090/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"}]
+
+$ curl -s -X POST localhost:8090/api/v1/announcements -H 'Content-Type: application/json' -d '{"title":"Fest on Friday","body":"Main ground, 5 PM"}'
+HTTP/1.1 201 Created
+Content-Length: 79
+Content-Type: application/json
+
+{"id":3,"title":"Fest on Friday","body":"Main ground, 5 PM","department":"ALL"}
+
+$ curl -s localhost:8090/api/v1/timetable/CY-5A
+[{"day":"MON","start":"09:00","end":"10:00","course":"DevOps","room":"LHC-104"},{"day":"MON","start":"10:00","end":"11:00","course":"Cryptography","room":"LHC-201"},{"day":"TUE","start":"11:30","end":"13:30","course":"Network Security Lab","room":"CY-LAB-2"}]

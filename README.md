@@ -20,3 +20,21 @@ curl http://localhost:8080/health
 ```
 
 The port comes from the `PORT` environment variable (default 8080).
+
+## Endpoints
+
+| Method | Path | What it does |
+| --- | --- | --- |
+| GET | `/health` | `{"status":"UP", ...}` with the running version |
+| GET | `/api/v1/announcements?department=CY` | Lists campus announcements (optional department filter) |
+| POST | `/api/v1/announcements` | Adds an announcement; `201`, or `400` when the title is blank |
+| GET | `/api/v1/timetable/{section}` | Sample timetable for a section such as `CY-5A`; `404` if unknown |
+
+Data is held in memory and reset on restart. Every running copy has its own
+list, so with several replicas a new announcement shows only on the copy that
+received it.
+
+## Evidence
+
+Captured command output and screenshots live in [`evidence/`](evidence/),
+one folder per assignment component.
