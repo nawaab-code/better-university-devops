@@ -1,0 +1,10 @@
+$ date; hostname
+Mon Nov 16 05:25:07 UTC 2026
+hospet
+
+$ kubectl get nodes -o wide  (re-run once the node settled)
+NAME                      STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION      CONTAINER-RUNTIME
+bu-campus-control-plane   Ready    control-plane   21s   v1.33.1   172.18.0.2    <none>        Debian GNU/Linux 12 (bookworm)   6.17.0-41-generic   containerd://2.1.1
+
+$ docker exec bu-campus-control-plane crictl images | grep bu-campus
+docker.io/library/bu-campus-api                 1.0.0                dcdc97004ff84       82MB

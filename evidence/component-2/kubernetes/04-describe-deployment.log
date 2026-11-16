@@ -1,0 +1,68 @@
+$ date; hostname
+Mon Nov 16 05:25:24 UTC 2026
+hospet
+
+$ kubectl describe deployment bu-campus-api
+Name:                   bu-campus-api
+Namespace:              default
+CreationTimestamp:      Mon, 16 Nov 2026 05:25:07 +0000
+Labels:                 app=bu-campus-api
+                        tier=backend
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=bu-campus-api,tier=backend
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  0 max unavailable, 1 max surge
+Pod Template:
+  Labels:  app=bu-campus-api
+           tier=backend
+  Containers:
+   bu-campus-api:
+    Image:      bu-campus-api:1.0.0
+    Port:       8080/TCP (http)
+    Host Port:  0/TCP (http)
+    Limits:
+      cpu:     500m
+      memory:  384Mi
+    Requests:
+      cpu:      100m
+      memory:   192Mi
+    Liveness:   http-get http://:http/health delay=15s timeout=2s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:http/health delay=5s timeout=2s period=5s successThreshold=1 failureThreshold=3
+    Environment Variables from:
+      bu-campus-api-config  ConfigMap  Optional: false
+    Environment:            <none>
+    Mounts:                 <none>
+  Volumes:                  <none>
+  Node-Selectors:           <none>
+  Tolerations:              <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   bu-campus-api-84dcc87b67 (3/3 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  17s   deployment-controller  Scaled up replica set bu-campus-api-84dcc87b67 from 0 to 3
+
+$ kubectl get cm bu-campus-api-config -o yaml
+apiVersion: v1
+data:
+  APP_VERSION: 1.0.0
+  PORT: "8080"
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"APP_VERSION":"1.0.0","PORT":"8080"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app":"bu-campus-api"},"name":"bu-campus-api-config","namespace":"default"}}
+  creationTimestamp: "2026-11-16T05:25:07Z"
+  labels:
+    app: bu-campus-api
+  name: bu-campus-api-config
+  namespace: default
+  resourceVersion: "464"
+  uid: 4118c951-e8f0-407b-ab47-ffbe35fa8ab4

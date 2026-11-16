@@ -1,0 +1,41 @@
+$ date; hostname
+Mon Nov 16 05:25:25 UTC 2026
+hospet
+
+$ curl -si http://localhost:30080/health
+HTTP/1.1 200 OK
+Content-Length: 59
+Content-Type: application/json
+
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ curl -si http://localhost:30080/api/v1/announcements
+HTTP/1.1 200 OK
+Content-Length: 223
+Content-Type: application/json
+
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"}]
+
+$ curl -si http://localhost:30080/api/v1/timetable/CY-5A
+HTTP/1.1 200 OK
+Content-Length: 259
+Content-Type: application/json
+
+[{"day":"MON","start":"09:00","end":"10:00","course":"DevOps","room":"LHC-104"},{"day":"MON","start":"10:00","end":"11:00","course":"Cryptography","room":"LHC-201"},{"day":"TUE","start":"11:30","end":"13:30","course":"Network Security Lab","room":"CY-LAB-2"}]
+
+$ curl -s -X POST http://localhost:30080/api/v1/announcements ...
+HTTP/1.1 400 Bad Request
+Content-Length: 0
+
+
+
+# Each pod answers on its own IP (curl from inside the kind node, bypassing the Service):
+$ curl http://10.244.0.5:8080/health
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+$ curl http://10.244.0.6:8080/health
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+$ curl http://10.244.0.7:8080/health
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+# 12 requests through the Service all succeed:
+200 200 200 200 200 200 200 200 200 200 200 200 

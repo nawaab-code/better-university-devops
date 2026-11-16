@@ -1,0 +1,36 @@
+$ date; hostname
+Mon Nov 16 05:25:58 UTC 2026
+hospet
+
+$ kubectl scale deployment bu-campus-api --replicas=3
+deployment.apps/bu-campus-api scaled
+
+$ timeout 20 kubectl get pods -w   (timestamped)
+05:25:58 NAME                             READY   STATUS        RESTARTS   AGE
+05:25:58 bu-campus-api-84dcc87b67-8gszr   1/1     Terminating   0          20s
+05:25:58 bu-campus-api-84dcc87b67-gk9ng   1/1     Running       0          51s
+05:25:58 bu-campus-api-84dcc87b67-pxr9f   1/1     Terminating   0          20s
+05:25:58 bu-campus-api-84dcc87b67-r9j4l   1/1     Running       0          51s
+05:25:58 bu-campus-api-84dcc87b67-sdsgc   1/1     Running       0          51s
+05:25:59 bu-campus-api-84dcc87b67-8gszr   0/1     Error         0          21s
+05:25:59 bu-campus-api-84dcc87b67-pxr9f   0/1     Error         0          21s
+05:26:00 bu-campus-api-84dcc87b67-pxr9f   0/1     Error         0          22s
+05:26:00 bu-campus-api-84dcc87b67-pxr9f   0/1     Error         0          22s
+05:26:00 bu-campus-api-84dcc87b67-8gszr   0/1     Error         0          22s
+05:26:00 bu-campus-api-84dcc87b67-8gszr   0/1     Error         0          22s
+
+$ kubectl get deploy,rs; kubectl get pods
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   3/3     3            3           71s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-84dcc87b67   3         3         3       71s
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          71s
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          71s
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          71s
+
+$ kubectl get events --sort-by=.lastTimestamp | grep -i scal
+71s         Normal   ScalingReplicaSet         deployment/bu-campus-api              Scaled up replica set bu-campus-api-84dcc87b67 from 0 to 3
+40s         Normal   ScalingReplicaSet         deployment/bu-campus-api              Scaled up replica set bu-campus-api-84dcc87b67 from 3 to 5
+20s         Normal   ScalingReplicaSet         deployment/bu-campus-api              Scaled down replica set bu-campus-api-84dcc87b67 from 5 to 3

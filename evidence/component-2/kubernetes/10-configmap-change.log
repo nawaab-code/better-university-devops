@@ -1,0 +1,56 @@
+$ date; hostname
+Mon Nov 16 05:26:26 UTC 2026
+hospet
+
+$ curl -s localhost:30080/health   (before)
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ kubectl patch configmap bu-campus-api-config --type merge -p {"data":{"APP_VERSION":"1.0.1-configmap"}}
+configmap/bu-campus-api-config patched
+
+$ curl -s localhost:30080/health   (env vars are read at container start -> unchanged until restart)
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ kubectl rollout restart deployment/bu-campus-api
+deployment.apps/bu-campus-api restarted
+
+$ kubectl rollout status deployment/bu-campus-api
+Waiting for deployment "bu-campus-api" rollout to finish: 0 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "bu-campus-api" rollout to finish: 1 old replicas are pending termination...
+deployment "bu-campus-api" successfully rolled out
+
+$ kubectl get pods; kubectl get rs
+NAME                             READY   STATUS        RESTARTS   AGE
+bu-campus-api-58476c6d46-f2hbz   1/1     Running       0          16s
+bu-campus-api-58476c6d46-lktw4   1/1     Running       0          24s
+bu-campus-api-58476c6d46-qm7zw   1/1     Running       0          8s
+bu-campus-api-84dcc87b67-r9j4l   1/1     Terminating   0          103s
+NAME                       DESIRED   CURRENT   READY   AGE
+bu-campus-api-58476c6d46   3         3         3       24s
+bu-campus-api-84dcc87b67   0         0         0       103s
+
+$ for i in 1..6: curl -s localhost:30080/health
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+
+$ kubectl exec <pod> -- env | grep -E "PORT|APP_VERSION"
+APP_VERSION=1.0.1-configmap
+PORT=8080
+
+$ kubectl rollout history deployment/bu-campus-api
+deployment.apps/bu-campus-api 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
