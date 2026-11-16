@@ -32,6 +32,7 @@ pipeline {
 
         stage('Test') {
             steps {
+                sh 'java -version && ./gradlew --version | head -8'
                 sh './gradlew test --console=plain'
             }
             post {

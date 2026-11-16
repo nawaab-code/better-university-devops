@@ -1,9 +1,9 @@
 # Jenkins Configuration as Code: controller, security and permissions.
 # The admin password is NOT in this file: it is read from a file inside the Jenkins home
 # (outside any repository). install.sh replaces __JENKINS_HOME__ with the real path
-# when it copies this file into place.
+# when it copies this file into place (/var/lib/jenkins on the VM).
 jenkins:
-  systemMessage: "Better University Campus API - CI (local Jenkins, DevOps Component 1)"
+  systemMessage: "Better University Campus API - CI (Jenkins on the hospet VM, DevOps Component 1)"
   numExecutors: 2
   mode: NORMAL
   securityRealm:
@@ -26,15 +26,20 @@ jenkins:
               - "Overall/Read"
               - "Job/Read"
               - "Job/ExtendedRead"
-              - "Run/Artifacts"
               - "View/Read"
   globalNodeProperties:
     - envVars:
         env:
+          # Jenkins itself runs on JDK 21; the builds (Gradle, Kotlin jvmToolchain(17)) use JDK 17.
           - key: "JAVA_HOME"
-            value: "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+            value: "/usr/lib/jvm/java-17-openjdk-amd64"
           - key: "PATH"
-            value: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+            value: "/usr/lib/jvm/java-17-openjdk-amd64/bin:/usr/local/bin:/usr/bin:/bin"
+tool:
+  jdk:
+    installations:
+      - name: "jdk17"
+        home: "/usr/lib/jvm/java-17-openjdk-amd64"
 unclassified:
   location:
-    url: "http://localhost:8080/"
+    url: "http://10.1.1.119:8080/"
