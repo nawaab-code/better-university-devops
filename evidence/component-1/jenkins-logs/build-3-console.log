@@ -1,0 +1,132 @@
+Started by an SCM change
+Checking out git https://github.com/nawaab-code/better-university-devops.git into /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65 to read Jenkinsfile
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/nawaab-code/better-university-devops.git # timeout=10
+Fetching upstream changes from https://github.com/nawaab-code/better-university-devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.51.0'
+ > git fetch --tags --force --progress -- https://github.com/nawaab-code/better-university-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision b86e0c9fe41d4690b01ef2caed21a061d9d4f971 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b86e0c9fe41d4690b01ef2caed21a061d9d4f971 # timeout=10
+Commit message: "Merge pull request #9 from nawaab-code/feature/ansible-on-vm"
+ > git rev-list --no-walk 45b31c9695f50d327f75ce4bfd3d1d90f2cdbd74 # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/bu-campus-api
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-16T05:24:18.195Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] checkout
+[2026-11-16T05:24:18.408Z] The recommended git tool is: NONE
+[2026-11-16T05:24:18.408Z] No credentials specified
+[2026-11-16T05:24:18.408Z]  > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/bu-campus-api/.git # timeout=10
+[2026-11-16T05:24:18.410Z] Fetching changes from the remote Git repository
+[2026-11-16T05:24:18.411Z]  > git config remote.origin.url https://github.com/nawaab-code/better-university-devops.git # timeout=10
+[2026-11-16T05:24:18.413Z] Fetching upstream changes from https://github.com/nawaab-code/better-university-devops.git
+[2026-11-16T05:24:18.413Z]  > git --version # timeout=10
+[2026-11-16T05:24:18.415Z]  > git --version # 'git version 2.51.0'
+[2026-11-16T05:24:18.415Z]  > git fetch --tags --force --progress -- https://github.com/nawaab-code/better-university-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-16T05:24:26.646Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2026-11-16T05:24:26.648Z] Checking out Revision b86e0c9fe41d4690b01ef2caed21a061d9d4f971 (refs/remotes/origin/main)
+[2026-11-16T05:24:26.648Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-16T05:24:26.650Z]  > git checkout -f b86e0c9fe41d4690b01ef2caed21a061d9d4f971 # timeout=10
+[2026-11-16T05:24:26.731Z] Commit message: "Merge pull request #9 from nawaab-code/feature/ansible-on-vm"
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+[2026-11-16T05:24:26.916Z] Building version 3-b86e0c9
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
+[2026-11-16T05:24:27.347Z] + java -version
+[2026-11-16T05:24:27.347Z] openjdk version "17.0.19" 2026-04-21
+[2026-11-16T05:24:27.348Z] OpenJDK Runtime Environment (build 17.0.19+10-1-25.10.2-Ubuntu)
+[2026-11-16T05:24:27.348Z] OpenJDK 64-Bit Server VM (build 17.0.19+10-1-25.10.2-Ubuntu, mixed mode, sharing)
+[2026-11-16T05:24:27.348Z] + ./gradlew --version
+[2026-11-16T05:24:27.348Z] + head -8
+[2026-11-16T05:24:27.898Z] 
+[2026-11-16T05:24:27.898Z] ------------------------------------------------------------
+[2026-11-16T05:24:27.898Z] Gradle 8.13
+[2026-11-16T05:24:27.899Z] ------------------------------------------------------------
+[2026-11-16T05:24:27.899Z] 
+[2026-11-16T05:24:27.899Z] Build time:    2025-02-25 09:22:14 UTC
+[2026-11-16T05:24:27.899Z] Revision:      073314332697ba45c16c0a0ce1891fa6794179ff
+[2026-11-16T05:24:27.899Z] 
+[Pipeline] sh
+[2026-11-16T05:24:28.196Z] + ./gradlew test --console=plain
+[2026-11-16T05:24:28.747Z] Starting a Gradle Daemon (subsequent builds will be faster)
+[2026-11-16T05:24:35.229Z] > Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+[2026-11-16T05:24:35.229Z] > Task :compileKotlin UP-TO-DATE
+[2026-11-16T05:24:35.229Z] > Task :compileJava NO-SOURCE
+[2026-11-16T05:24:35.229Z] > Task :processResources UP-TO-DATE
+[2026-11-16T05:24:35.229Z] > Task :classes UP-TO-DATE
+[2026-11-16T05:24:35.480Z] > Task :jar
+[2026-11-16T05:24:35.480Z] > Task :compileTestKotlin UP-TO-DATE
+[2026-11-16T05:24:35.480Z] > Task :compileTestJava NO-SOURCE
+[2026-11-16T05:24:35.480Z] > Task :processTestResources NO-SOURCE
+[2026-11-16T05:24:35.480Z] > Task :testClasses UP-TO-DATE
+[2026-11-16T05:24:35.480Z] > Task :test UP-TO-DATE
+[2026-11-16T05:24:35.480Z] 
+[2026-11-16T05:24:35.480Z] BUILD SUCCESSFUL in 7s
+[2026-11-16T05:24:35.480Z] 5 actionable tasks: 1 executed, 4 up-to-date
+Post stage
+[Pipeline] junit
+[2026-11-16T05:24:36.070Z] Recording test results
+[2026-11-16T05:24:36.090Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+[2026-11-16T05:24:36.533Z] + ./gradlew build -x test -PappVersion=3-b86e0c9 --console=plain
+[2026-11-16T05:24:37.877Z] > Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+[2026-11-16T05:24:37.877Z] > Task :compileKotlin UP-TO-DATE
+[2026-11-16T05:24:37.877Z] > Task :compileJava NO-SOURCE
+[2026-11-16T05:24:37.877Z] > Task :processResources UP-TO-DATE
+[2026-11-16T05:24:37.877Z] > Task :classes UP-TO-DATE
+[2026-11-16T05:24:37.877Z] > Task :jar
+[2026-11-16T05:24:37.877Z] > Task :startScripts
+[2026-11-16T05:24:37.877Z] > Task :distTar SKIPPED
+[2026-11-16T05:24:37.877Z] > Task :distZip SKIPPED
+[2026-11-16T05:24:40.361Z] > Task :shadowJar
+[2026-11-16T05:24:40.361Z] > Task :startShadowScripts SKIPPED
+[2026-11-16T05:24:40.361Z] > Task :shadowDistTar SKIPPED
+[2026-11-16T05:24:40.361Z] > Task :shadowDistZip SKIPPED
+[2026-11-16T05:24:40.361Z] > Task :assemble
+[2026-11-16T05:24:40.361Z] > Task :buildFatJar
+[2026-11-16T05:24:40.361Z] > Task :check
+[2026-11-16T05:24:40.361Z] > Task :build
+[2026-11-16T05:24:40.361Z] 
+[2026-11-16T05:24:40.361Z] BUILD SUCCESSFUL in 3s
+[2026-11-16T05:24:40.361Z] 5 actionable tasks: 3 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2026-11-16T05:24:40.608Z] Archiving artifacts
+[2026-11-16T05:24:40.615Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

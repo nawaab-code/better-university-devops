@@ -1,0 +1,25 @@
+$ date; hostname
+Mon Nov 16 05:28:35 UTC 2026
+hospet
+
+$ curl -s localhost:8090/health
+{"status":"UP","service":"bu-campus-api","version":"vm-local"}
+
+$ curl -s localhost:8090/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"}]
+
+$ curl -s -X POST localhost:8090/api/v1/announcements -H 'Content-Type: application/json' -d '{"title":"VM test","body":"posted from the hospet VM"}' -w '\nHTTP %{http_code}\n'
+{"id":3,"title":"VM test","body":"posted from the hospet VM","department":"ALL"}
+HTTP 201
+
+
+$ curl -s localhost:8090/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"},{"id":3,"title":"VM test","body":"posted from the hospet VM","department":"ALL"}]
+
+$ curl -s localhost:8090/api/v1/timetable/CY-5A
+[{"day":"MON","start":"09:00","end":"10:00","course":"DevOps","room":"LHC-104"},{"day":"MON","start":"10:00","end":"11:00","course":"Cryptography","room":"LHC-201"},{"day":"TUE","start":"11:30","end":"13:30","course":"Network Security Lab","room":"CY-LAB-2"}]
+
+$ curl -s -o /dev/null -w "unknown section: HTTP %{http_code}\n" localhost:8090/api/v1/timetable/ZZ
+unknown section: HTTP 404
+
+

@@ -1,0 +1,54 @@
+$ date; hostname
+Mon Nov 16 05:28:14 UTC 2026
+hospet
+
+$ ./gradlew clean build --console=plain -PappVersion=vm-local
+> Task :clean UP-TO-DATE
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processResources
+> Task :processTestResources NO-SOURCE
+> Task :compileKotlin
+> Task :compileJava NO-SOURCE
+> Task :classes
+> Task :jar
+> Task :startScripts
+> Task :distTar SKIPPED
+> Task :distZip SKIPPED
+> Task :shadowJar
+> Task :startShadowScripts SKIPPED
+> Task :shadowDistTar SKIPPED
+> Task :shadowDistZip SKIPPED
+> Task :assemble
+> Task :buildFatJar
+> Task :compileTestKotlin
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+
+> Task :test
+
+CampusApiTest > createsAnnouncementAndRejectsBlankTitle() PASSED
+
+CampusApiTest > returnsTimetableForKnownSectionOnly() PASSED
+
+CampusApiTest > listsSeededAnnouncements() PASSED
+
+HealthTest > healthReportsUp() PASSED
+
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 4s
+8 actionable tasks: 7 executed, 1 up-to-date
+
+$ ls -l build/libs
+total 15004
+-rw-rw-r-- 1 nawaab docker 15312745 Nov 16 05:28 bu-campus-api-vm-local-all.jar
+-rw-rw-r-- 1 nawaab docker    46623 Nov 16 05:28 bu-campus-api-vm-local.jar
+
+$ ls build/test-results/test/; grep -ho 'tests="[0-9]*" skipped="[0-9]*" failures="[0-9]*"' build/test-results/test/*.xml
+TEST-com.nawaablabs.bu.campus.CampusApiTest.xml
+TEST-com.nawaablabs.bu.campus.HealthTest.xml
+binary
+tests="3" skipped="0" failures="0"
+tests="1" skipped="0" failures="0"
+
