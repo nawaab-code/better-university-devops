@@ -1,0 +1,6 @@
+---
+# Internal constants of the role (high precedence, not meant to be overridden).
+service_name: bu-campus-api
+java_package: openjdk-17-jre-headless
+jar_dest: "{{ app_dir }}/{{ service_name }}.jar"
+env_file: "/etc/default/{{ service_name }}"

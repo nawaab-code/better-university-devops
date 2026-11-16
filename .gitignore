@@ -9,3 +9,12 @@ local.properties
 *.env
 .secrets/
 ansible/.vault*
+
+# Course inputs kept local only: the faculty brief and a classmate's sample report
+# (it carries their name and USN, so it is never published).
+assignment/reference.pdf
+assignment/goal.pdf
+# LaTeX build output
+assignment/*.aux
+assignment/*.log
+assignment/*.out

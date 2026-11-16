@@ -1,0 +1,22 @@
+roles
+`-- bu_campus_api
+    |-- README.md
+    |-- defaults
+    |   `-- main.yml
+    |-- files
+    |-- handlers
+    |   `-- main.yml
+    |-- meta
+    |   `-- main.yml
+    |-- tasks
+    |   `-- main.yml
+    |-- templates
+    |   |-- bu-campus-api.env.j2
+    |   `-- bu-campus-api.service.j2
+    |-- tests
+    |   |-- inventory
+    |   `-- test.yml
+    `-- vars
+        `-- main.yml
+
+10 directories, 10 files

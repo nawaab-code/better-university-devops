@@ -1,0 +1,21 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Better University Campus API {{ app_version }}
+After=network.target
+
+[Service]
+Type=simple
+User={{ app_user }}
+Group={{ app_user }}
+WorkingDirectory={{ app_dir }}
+EnvironmentFile={{ env_file }}
+ExecStart=/usr/bin/java -jar {{ jar_dest }}
+Restart=on-failure
+RestartSec=3
+# Light hardening
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
