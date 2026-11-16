@@ -1,0 +1,31 @@
+$ date; hostname
+Mon Nov 16 05:23:51 UTC 2026
+hospet
+
+$ kind create cluster --name bu-campus --config k8s/kind-cluster.yaml
+Creating cluster "bu-campus" ...
+ • Ensuring node image (kindest/node:v1.33.1) 🖼  ...
+ ✓ Ensuring node image (kindest/node:v1.33.1) 🖼
+ • Preparing nodes 📦   ...
+ ✓ Preparing nodes 📦 
+ • Writing configuration 📜  ...
+ ✓ Writing configuration 📜
+ • Starting control-plane 🕹️  ...
+ ✓ Starting control-plane 🕹️
+ • Installing CNI 🔌  ...
+ ✓ Installing CNI 🔌
+ • Installing StorageClass 💾  ...
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-bu-campus"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-bu-campus
+
+Have a nice day! 👋
+
+$ kind load docker-image bu-campus-api:1.0.0 --name bu-campus
+Image: "bu-campus-api:1.0.0" with ID "sha256:2617656dec5f87c9d5c6aaf29d8876f4b446002dcccb4032fdce4d69a11afb34" not yet present on node "bu-campus-control-plane", loading...
+
+$ kubectl get nodes -o wide
+NAME                      STATUS     ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION      CONTAINER-RUNTIME
+bu-campus-control-plane   NotReady   control-plane   9s    v1.33.1   172.18.0.2    <none>        Debian GNU/Linux 12 (bookworm)   6.17.0-41-generic   containerd://2.1.1

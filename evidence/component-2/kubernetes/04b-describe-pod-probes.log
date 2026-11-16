@@ -1,0 +1,26 @@
+$ date; hostname
+Mon Nov 16 05:25:32 UTC 2026
+hospet
+
+$ kubectl describe pod/bu-campus-api-84dcc87b67-gk9ng   (probes, Ready conditions, env)
+Name:             bu-campus-api-84dcc87b67-gk9ng
+Labels:           app=bu-campus-api
+      Started:      Mon, 16 Nov 2026 05:25:08 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  384Mi
+    Requests:
+      cpu:      100m
+      memory:   192Mi
+    Liveness:   http-get http://:http/health delay=15s timeout=2s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:http/health delay=5s timeout=2s period=5s successThreshold=1 failureThreshold=3
+    Environment Variables from:
+      bu-campus-api-config  ConfigMap  Optional: false
+Conditions:
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+    ConfigMapName:           kube-root-ca.crt

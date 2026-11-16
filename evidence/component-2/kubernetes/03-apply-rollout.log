@@ -1,0 +1,38 @@
+$ date; hostname
+Mon Nov 16 05:25:07 UTC 2026
+hospet
+
+$ kubectl apply -f k8s/configmap.yaml
+configmap/bu-campus-api-config created
+$ kubectl apply -f k8s/deployment.yaml
+deployment.apps/bu-campus-api created
+$ kubectl apply -f k8s/service.yaml
+service/bu-campus-api created
+
+$ kubectl rollout status deployment/bu-campus-api
+Waiting for deployment "bu-campus-api" rollout to finish: 0 of 3 updated replicas are available...
+Waiting for deployment "bu-campus-api" rollout to finish: 1 of 3 updated replicas are available...
+Waiting for deployment "bu-campus-api" rollout to finish: 2 of 3 updated replicas are available...
+deployment "bu-campus-api" successfully rolled out
+
+$ kubectl get pods -o wide --show-labels
+NAME                             READY   STATUS    RESTARTS   AGE   IP           NODE                      NOMINATED NODE   READINESS GATES   LABELS
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          9s    10.244.0.5   bu-campus-control-plane   <none>           <none>            app=bu-campus-api,pod-template-hash=84dcc87b67,tier=backend
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          9s    10.244.0.6   bu-campus-control-plane   <none>           <none>            app=bu-campus-api,pod-template-hash=84dcc87b67,tier=backend
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          9s    10.244.0.7   bu-campus-control-plane   <none>           <none>            app=bu-campus-api,pod-template-hash=84dcc87b67,tier=backend
+
+$ kubectl get deploy,rs,svc,ep
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   3/3     3            3           9s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-84dcc87b67   3         3         3       9s
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/bu-campus-api   NodePort    10.96.164.238   <none>        80:30080/TCP   9s
+service/kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        28s
+
+NAME                      ENDPOINTS                                         AGE
+endpoints/bu-campus-api   10.244.0.5:8080,10.244.0.6:8080,10.244.0.7:8080   9s
+endpoints/kubernetes      172.18.0.2:6443                                   28s

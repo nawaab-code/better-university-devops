@@ -1,0 +1,89 @@
+$ date; hostname
+Mon Nov 16 05:27:06 UTC 2026
+hospet
+
+$ kubectl get rs,pods   (before)
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-58476c6d46   3         3         3       40s
+replicaset.apps/bu-campus-api-84dcc87b67   0         0         0       119s
+
+NAME                                 READY   STATUS    RESTARTS   AGE
+pod/bu-campus-api-58476c6d46-f2hbz   1/1     Running   0          32s
+pod/bu-campus-api-58476c6d46-lktw4   1/1     Running   0          40s
+pod/bu-campus-api-58476c6d46-qm7zw   1/1     Running   0          24s
+
+$ kubectl set image deployment/bu-campus-api bu-campus-api=bu-campus-api:2.0.0-broken
+deployment.apps/bu-campus-api image updated
+
+$ kubectl annotate deployment/bu-campus-api kubernetes.io/change-cause="set image to 2.0.0-broken" --overwrite
+deployment.apps/bu-campus-api annotated
+
+--- 05:27:16 snapshot ---
+NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE                      NOMINATED NO
+bu-campus-api-58476c6d46-f2hbz   1/1     Running   0          42s   10.244.0.11   bu-campus-control-plane   <none>      
+bu-campus-api-58476c6d46-lktw4   1/1     Running   0          50s   10.244.0.10   bu-campus-control-plane   <none>      
+bu-campus-api-58476c6d46-qm7zw   1/1     Running   0          34s   10.244.0.12   bu-campus-control-plane   <none>      
+bu-campus-api-794bccfdfc-75zmk   0/1     Running   0          10s   10.244.0.13   bu-campus-control-plane   <none>      
+$ curl x10 via Service:
+200 200 200 200 200 200 200 200 200 200 
+
+--- 05:27:31 snapshot ---
+NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE                      NOMINATED NO
+bu-campus-api-58476c6d46-f2hbz   1/1     Running   0          57s   10.244.0.11   bu-campus-control-plane   <none>      
+bu-campus-api-58476c6d46-lktw4   1/1     Running   0          65s   10.244.0.10   bu-campus-control-plane   <none>      
+bu-campus-api-58476c6d46-qm7zw   1/1     Running   0          49s   10.244.0.12   bu-campus-control-plane   <none>      
+bu-campus-api-794bccfdfc-75zmk   0/1     Running   0          25s   10.244.0.13   bu-campus-control-plane   <none>      
+$ curl x10 via Service:
+200 200 200 200 200 200 200 200 200 200 
+
+--- 05:27:46 snapshot ---
+NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE                      NOMINATED NO
+bu-campus-api-58476c6d46-f2hbz   1/1     Running   0          72s   10.244.0.11   bu-campus-control-plane   <none>      
+bu-campus-api-58476c6d46-lktw4   1/1     Running   0          80s   10.244.0.10   bu-campus-control-plane   <none>      
+bu-campus-api-58476c6d46-qm7zw   1/1     Running   0          64s   10.244.0.12   bu-campus-control-plane   <none>      
+bu-campus-api-794bccfdfc-75zmk   0/1     Running   0          40s   10.244.0.13   bu-campus-control-plane   <none>      
+$ curl x10 via Service:
+200 200 200 200 200 200 200 200 200 200 
+
+$ kubectl rollout status deployment/bu-campus-api --timeout=15s
+Waiting for deployment "bu-campus-api" rollout to finish: 1 out of 3 new replicas have been updated...
+error: timed out waiting for the condition
+
+$ kubectl get deploy,rs
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   3/3     1            3           2m54s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-58476c6d46   3         3         3       95s
+replicaset.apps/bu-campus-api-794bccfdfc   1         1         0       55s
+replicaset.apps/bu-campus-api-84dcc87b67   0         0         0       2m54s
+
+$ kubectl describe pod (new, not-ready pod): events
+pod: bu-campus-api-794bccfdfc-75zmk
+Conditions:
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  55s                default-scheduler  Successfully assigned default/bu-campus-api-794bccfdfc-75zmk to bu-campus-control-plane
+  Normal   Pulled     55s                kubelet            spec.containers{bu-campus-api}: Container image "bu-campus-api:2.0.0-broken" already present on machine
+  Normal   Created    55s                kubelet            spec.containers{bu-campus-api}: Created container: bu-campus-api
+  Normal   Started    55s                kubelet            spec.containers{bu-campus-api}: Started container bu-campus-api
+  Warning  Unhealthy  15s (x3 over 35s)  kubelet            spec.containers{bu-campus-api}: Liveness probe failed: Get "http://10.244.0.13:8080/health": dial tcp 10.244.0.13:8080: connect: connection refused
+  Normal   Killing    15s                kubelet            spec.containers{bu-campus-api}: Container bu-campus-api failed liveness probe, will be restarted
+  Warning  Unhealthy  0s (x11 over 48s)  kubelet            spec.containers{bu-campus-api}: Readiness probe failed: Get "http://10.244.0.13:8080/health": dial tcp 10.244.0.13:8080: connect: connection refused
+
+$ kubectl logs <new pod>
+starting v2.0.0-broken (bug: server never starts)
+
+$ kubectl rollout history deployment/bu-campus-api
+deployment.apps/bu-campus-api 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+3         set image to 2.0.0-broken
+

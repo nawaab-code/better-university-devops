@@ -1,0 +1,40 @@
+$ date; hostname
+Mon Nov 16 05:28:11 UTC 2026
+hospet
+
+$ kubectl apply -f k8s/configmap.yaml   (restore the committed value 1.0.0)
+configmap/bu-campus-api-config configured
+
+$ kubectl rollout restart deployment/bu-campus-api && kubectl rollout status deployment/bu-campus-api
+deployment.apps/bu-campus-api restarted
+deployment "bu-campus-api" successfully rolled out
+
+$ kubectl get nodes,deploy,rs,pods,svc -o wide
+NAME                           STATUS   ROLES           AGE    VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION      CONTAINER-RUNTIM
+node/bu-campus-control-plane   Ready    control-plane   4m2s   v1.33.1   172.18.0.2    <none>        Debian GNU/Linux 12 (bookworm)   6.17.0-41-generic   containerd://2.1
+
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS      IMAGES                SELECTOR
+deployment.apps/bu-campus-api   3/3     3            3           3m41s   bu-campus-api   bu-campus-api:1.0.0   app=bu-campus-api,tier=backend
+
+NAME                                       DESIRED   CURRENT   READY   AGE     CONTAINERS      IMAGES                       SELECTOR
+replicaset.apps/bu-campus-api-55bcc86994   3         3         3       37s     bu-campus-api   bu-campus-api:1.0.0          app=bu-campus-api,pod-template-hash=55bcc86994
+replicaset.apps/bu-campus-api-58476c6d46   0         0         0       2m22s   bu-campus-api   bu-campus-api:1.0.0          app=bu-campus-api,pod-template-hash=58476c6d46
+replicaset.apps/bu-campus-api-794bccfdfc   0         0         0       102s    bu-campus-api   bu-campus-api:2.0.0-broken   app=bu-campus-api,pod-template-hash=794bccfdfc
+replicaset.apps/bu-campus-api-84dcc87b67   0         0         0       3m41s   bu-campus-api   bu-campus-api:1.0.0          app=bu-campus-api,pod-template-hash=84dcc87b67
+
+NAME                                 READY   STATUS    RESTARTS   AGE   IP            NODE                      NOMINATED NODE   READINESS GATES
+pod/bu-campus-api-55bcc86994-jb7lf   1/1     Running   0          29s   10.244.0.15   bu-campus-control-plane   <none>           <none>
+pod/bu-campus-api-55bcc86994-sx4sg   1/1     Running   0          37s   10.244.0.14   bu-campus-control-plane   <none>           <none>
+pod/bu-campus-api-55bcc86994-vpmc9   1/1     Running   0          21s   10.244.0.16   bu-campus-control-plane   <none>           <none>
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+service/bu-campus-api   NodePort    10.96.164.238   <none>        80:30080/TCP   3m41s   app=bu-campus-api,tier=backend
+service/kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        4m      <none>
+
+$ curl localhost:30080/health
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ kind get clusters; docker ps --filter name=bu-campus
+bu-campus
+NAMES                     STATUS         PORTS
+bu-campus-control-plane   Up 4 minutes   127.0.0.1:30080->30080/tcp, 127.0.0.1:35951->6443/tcp

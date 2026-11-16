@@ -1,0 +1,45 @@
+$ date; hostname
+Mon Nov 16 05:25:38 UTC 2026
+hospet
+
+$ kubectl get rs  (before)
+NAME                       DESIRED   CURRENT   READY   AGE
+bu-campus-api-84dcc87b67   3         3         3       31s
+
+$ kubectl scale deployment bu-campus-api --replicas=5
+deployment.apps/bu-campus-api scaled
+
+$ timeout 20 kubectl get pods -w   (timestamped)
+05:25:38 NAME                             READY   STATUS    RESTARTS   AGE
+05:25:38 bu-campus-api-84dcc87b67-8gszr   0/1     Pending   0          0s
+05:25:38 bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          31s
+05:25:38 bu-campus-api-84dcc87b67-pxr9f   0/1     Pending   0          0s
+05:25:38 bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          31s
+05:25:38 bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          31s
+05:25:38 bu-campus-api-84dcc87b67-pxr9f   0/1     Pending   0          0s
+05:25:38 bu-campus-api-84dcc87b67-8gszr   0/1     ContainerCreating   0          0s
+05:25:38 bu-campus-api-84dcc87b67-pxr9f   0/1     ContainerCreating   0          0s
+05:25:39 bu-campus-api-84dcc87b67-pxr9f   0/1     Running             0          1s
+05:25:39 bu-campus-api-84dcc87b67-8gszr   0/1     Running             0          1s
+05:25:46 bu-campus-api-84dcc87b67-pxr9f   1/1     Running             0          8s
+05:25:46 bu-campus-api-84dcc87b67-8gszr   1/1     Running             0          8s
+
+$ kubectl rollout status deployment/bu-campus-api
+deployment "bu-campus-api" successfully rolled out
+
+$ kubectl get deploy,rs; kubectl get pods
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   5/5     5            5           51s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-84dcc87b67   5         5         5       51s
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-84dcc87b67-8gszr   1/1     Running   0          20s
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          51s
+bu-campus-api-84dcc87b67-pxr9f   1/1     Running   0          20s
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          51s
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          51s
+
+$ kubectl get endpoints bu-campus-api
+NAME            ENDPOINTS                                                     AGE
+bu-campus-api   10.244.0.5:8080,10.244.0.6:8080,10.244.0.7:8080 + 2 more...   51s

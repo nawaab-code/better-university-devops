@@ -1,0 +1,24 @@
+$ date; hostname
+Mon Nov 16 05:25:24 UTC 2026
+hospet
+
+$ kubectl get pods -l app=bu-campus-api
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          17s
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          17s
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          17s
+
+$ kubectl get pods -l app=bu-campus-api,tier=backend --no-headers | wc -l
+3
+
+$ kubectl get pods -l tier=frontend   (selector that matches nothing)
+No resources found in default namespace.
+
+$ kubectl get svc bu-campus-api -o jsonpath={.spec.selector}
+{"app":"bu-campus-api","tier":"backend"}
+
+$ kubectl get pods -L app,tier
+NAME                             READY   STATUS    RESTARTS   AGE   APP             TIER
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          18s   bu-campus-api   backend
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          18s   bu-campus-api   backend
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          18s   bu-campus-api   backend

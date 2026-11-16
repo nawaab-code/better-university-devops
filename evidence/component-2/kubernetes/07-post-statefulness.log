@@ -1,0 +1,24 @@
+$ date; hostname
+Mon Nov 16 05:25:33 UTC 2026
+hospet
+
+# first attempt used wrong field name "audience" -> 400 (kept as a record); the API field is "department"
+$ curl -si -X POST -d {"title":..,"body":..,"audience":"ALL"} http://localhost:30080/api/v1/announcements
+HTTP/1.1 400 Bad Request
+Content-Length: 0
+
+
+$ curl -si -X POST -d {"title":..,"body":..,"department":"CY"} http://localhost:30080/api/v1/announcements
+HTTP/1.1 201 Created
+Content-Length: 97
+Content-Type: application/json
+
+{"id":3,"title":"Posted via k8s","body":"created through the NodePort Service","department":"CY"}
+
+# NOTE: data is in-memory per pod; a GET through the Service may or may not show the new item depending on which pod answers:
+"id":1 "id":2 
+"id":1 "id":2 "id":3 
+"id":1 "id":2 "id":3 
+"id":1 "id":2 
+"id":1 "id":2 "id":3 
+"id":1 "id":2 

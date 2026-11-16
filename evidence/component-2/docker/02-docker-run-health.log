@@ -1,0 +1,29 @@
+$ date; hostname
+Mon Nov 16 05:23:27 UTC 2026
+hospet
+
+$ docker run -d --name bu-campus-test -p 18090:8080 bu-campus-api:1.0.0
+13722572eaeb3e8727829e8b0e71933b4046ef2b46e909450965fa4a4c99ac6a
+
+$ docker ps --filter name=bu-campus-test
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                                           NAMES
+13722572eaeb   bu-campus-api:1.0.0   "java -jar /app/app.…"   6 seconds ago   Up 6 seconds   0.0.0.0:18090->8080/tcp, [::]:18090->8080/tcp   bu-campus-test
+
+$ curl -i localhost:18090/health
+HTTP/1.1 200 OK
+Content-Length: 59
+Content-Type: application/json
+
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ curl localhost:18090/api/v1/timetable/CY-5A
+[{"day":"MON","start":"09:00","end":"10:00","course":"DevOps","room":"LHC-104"},{"day":"MON","start":"10:00","end":"11:00","course":"Cryptography","room":"LHC-201"},{"day":"TUE","start":"11:30","end":"13:30","course":"Network Security Lab","room":"CY-LAB-2"}]
+
+$ docker exec bu-campus-test id
+uid=100(bu) gid=101(bu) groups=101(bu)
+$ docker exec bu-campus-test which gradle javac
+no gradle, no javac in runtime image
+
+$ docker stop bu-campus-test && docker rm bu-campus-test
+bu-campus-test
+bu-campus-test
