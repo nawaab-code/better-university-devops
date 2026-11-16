@@ -18,3 +18,6 @@ assignment/goal.pdf
 assignment/*.aux
 assignment/*.log
 assignment/*.out
+
+# The filled report carries the student name and USN; it is built on the VM and kept out of git.
+assignment/report/
