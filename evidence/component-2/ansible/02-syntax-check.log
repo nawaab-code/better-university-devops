@@ -1,2 +1,7 @@
+$ date; hostname
+Mon Nov 16 05:22:07 UTC 2026
+hospet
+
+$ ansible-playbook -i inventory.ini playbook.yml --syntax-check
 
 playbook: playbook.yml

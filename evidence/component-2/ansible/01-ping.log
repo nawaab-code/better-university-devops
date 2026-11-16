@@ -1,4 +1,9 @@
-[0;32mbu-target | SUCCESS => {[0m
+$ date; hostname
+Mon Nov 16 05:22:06 UTC 2026
+hospet
+
+$ ansible -i inventory.ini campus_api -m ping
+[0;32mhospet | SUCCESS => {[0m
 [0;32m    "changed": false,[0m
 [0;32m    "ping": "pong"[0m
 [0;32m}[0m

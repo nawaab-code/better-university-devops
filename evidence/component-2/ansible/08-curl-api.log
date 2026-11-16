@@ -1,0 +1,27 @@
+$ date; hostname
+Mon Nov 16 05:22:49 UTC 2026
+hospet
+
+$ curl -si http://127.0.0.1:8081/health
+HTTP/1.1 200 OK
+Content-Length: 59
+Content-Type: application/json
+
+{"status":"UP","service":"bu-campus-api","version":"1.1.0"}
+
+$ curl -s http://127.0.0.1:8081/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"}]
+
+$ curl -si -X POST -H 'Content-Type: application/json' -d '{"title":"Ansible test","body":"posted from the VM"}' http://127.0.0.1:8081/api/v1/announcements
+HTTP/1.1 201 Created
+Content-Length: 78
+Content-Type: application/json
+
+{"id":3,"title":"Ansible test","body":"posted from the VM","department":"ALL"}
+
+$ curl -s http://127.0.0.1:8081/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"},{"id":3,"title":"Ansible test","body":"posted from the VM","department":"ALL"}]
+
+$ curl -s http://127.0.0.1:8081/api/v1/timetable/A
+{"error":"no timetable for section A"}
+

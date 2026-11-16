@@ -1,0 +1,145 @@
+Started by user admin
+Checking out git https://github.com/nawaab-code/better-university-devops.git into /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65 to read Jenkinsfile
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nawaab-code/better-university-devops.git
+ > git init /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65 # timeout=10
+Fetching upstream changes from https://github.com/nawaab-code/better-university-devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.51.0'
+ > git fetch --tags --force --progress -- https://github.com/nawaab-code/better-university-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nawaab-code/better-university-devops.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision c7c697a20f0ccd699738741e5f99b60c829b9016 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c7c697a20f0ccd699738741e5f99b60c829b9016 # timeout=10
+Commit message: "docs: add the course report template and logo"
+First time build. Skipping changelog.
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/bu-campus-api
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-16T05:21:43.493Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] checkout
+[2026-11-16T05:21:43.902Z] The recommended git tool is: NONE
+[2026-11-16T05:21:43.902Z] No credentials specified
+[2026-11-16T05:21:43.902Z] Cloning the remote Git repository
+[2026-11-16T05:21:43.902Z] Cloning repository https://github.com/nawaab-code/better-university-devops.git
+[2026-11-16T05:21:43.903Z]  > git init /var/lib/jenkins/workspace/bu-campus-api # timeout=10
+[2026-11-16T05:21:43.907Z] Fetching upstream changes from https://github.com/nawaab-code/better-university-devops.git
+[2026-11-16T05:21:43.908Z]  > git --version # timeout=10
+[2026-11-16T05:21:43.911Z]  > git --version # 'git version 2.51.0'
+[2026-11-16T05:21:43.911Z]  > git fetch --tags --force --progress -- https://github.com/nawaab-code/better-university-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-16T05:21:45.490Z]  > git config remote.origin.url https://github.com/nawaab-code/better-university-devops.git # timeout=10
+[2026-11-16T05:21:45.498Z]  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-16T05:21:45.505Z] Avoid second fetch
+[2026-11-16T05:21:45.505Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2026-11-16T05:21:45.511Z] Checking out Revision c7c697a20f0ccd699738741e5f99b60c829b9016 (refs/remotes/origin/main)
+[2026-11-16T05:21:45.511Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-16T05:21:45.516Z]  > git checkout -f c7c697a20f0ccd699738741e5f99b60c829b9016 # timeout=10
+[2026-11-16T05:21:45.549Z] Commit message: "docs: add the course report template and logo"
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+[2026-11-16T05:21:45.906Z] Building version 1-c7c697a
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
+[2026-11-16T05:21:46.419Z] + ./gradlew test --console=plain
+[2026-11-16T05:21:46.420Z] Fetching distribution.
+[2026-11-16T05:21:46.420Z] Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
+[2026-11-16T05:22:01.171Z] .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+[2026-11-16T05:22:02.082Z] 
+[2026-11-16T05:22:02.082Z] Welcome to Gradle 8.13!
+[2026-11-16T05:22:02.082Z] 
+[2026-11-16T05:22:02.082Z] Here are the highlights of this release:
+[2026-11-16T05:22:02.082Z]  - Daemon JVM auto-provisioning
+[2026-11-16T05:22:02.082Z]  - Enhancements for Scala plugin and JUnit testing
+[2026-11-16T05:22:02.082Z]  - Improvements for build authors and plugin developers
+[2026-11-16T05:22:02.082Z] 
+[2026-11-16T05:22:02.082Z] For more details see https://docs.gradle.org/8.13/release-notes.html
+[2026-11-16T05:22:02.082Z] 
+[2026-11-16T05:22:02.082Z] Starting a Gradle Daemon (subsequent builds will be faster)
+[2026-11-16T05:22:40.641Z] > Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+[2026-11-16T05:22:48.668Z] > Task :processResources
+[2026-11-16T05:22:48.668Z] > Task :processTestResources NO-SOURCE
+[2026-11-16T05:22:52.792Z] > Task :compileKotlin
+[2026-11-16T05:22:52.792Z] > Task :compileJava NO-SOURCE
+[2026-11-16T05:22:52.792Z] > Task :classes
+[2026-11-16T05:22:52.792Z] > Task :jar
+[2026-11-16T05:22:54.654Z] > Task :compileTestKotlin
+[2026-11-16T05:22:54.655Z] > Task :compileTestJava NO-SOURCE
+[2026-11-16T05:22:54.655Z] > Task :testClasses UP-TO-DATE
+[2026-11-16T05:22:57.138Z] 
+[2026-11-16T05:22:57.138Z] > Task :test
+[2026-11-16T05:22:57.138Z] 
+[2026-11-16T05:22:57.138Z] CampusApiTest > createsAnnouncementAndRejectsBlankTitle() PASSED
+[2026-11-16T05:22:57.138Z] 
+[2026-11-16T05:22:57.138Z] CampusApiTest > returnsTimetableForKnownSectionOnly() PASSED
+[2026-11-16T05:22:57.138Z] 
+[2026-11-16T05:22:57.138Z] CampusApiTest > listsSeededAnnouncements() PASSED
+[2026-11-16T05:22:57.138Z] 
+[2026-11-16T05:22:57.138Z] HealthTest > healthReportsUp() PASSED
+[2026-11-16T05:22:57.138Z] 
+[2026-11-16T05:22:57.138Z] BUILD SUCCESSFUL in 1m 10s
+[2026-11-16T05:22:57.138Z] 5 actionable tasks: 5 executed
+Post stage
+[Pipeline] junit
+[2026-11-16T05:22:57.252Z] Recording test results
+[2026-11-16T05:22:57.361Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+[2026-11-16T05:22:57.892Z] + ./gradlew build -x test -PappVersion=1-c7c697a --console=plain
+[2026-11-16T05:22:59.238Z] > Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+[2026-11-16T05:22:59.238Z] > Task :compileKotlin UP-TO-DATE
+[2026-11-16T05:22:59.238Z] > Task :compileJava NO-SOURCE
+[2026-11-16T05:22:59.238Z] > Task :processResources UP-TO-DATE
+[2026-11-16T05:22:59.243Z] > Task :classes UP-TO-DATE
+[2026-11-16T05:22:59.243Z] > Task :jar
+[2026-11-16T05:22:59.798Z] > Task :startScripts
+[2026-11-16T05:22:59.798Z] > Task :distTar SKIPPED
+[2026-11-16T05:22:59.798Z] > Task :distZip SKIPPED
+[2026-11-16T05:23:02.285Z] > Task :shadowJar
+[2026-11-16T05:23:02.285Z] > Task :startShadowScripts SKIPPED
+[2026-11-16T05:23:02.285Z] > Task :shadowDistTar SKIPPED
+[2026-11-16T05:23:02.285Z] > Task :shadowDistZip SKIPPED
+[2026-11-16T05:23:02.285Z] > Task :assemble
+[2026-11-16T05:23:02.285Z] > Task :buildFatJar
+[2026-11-16T05:23:02.285Z] > Task :check
+[2026-11-16T05:23:02.285Z] > Task :build
+[2026-11-16T05:23:02.285Z] 
+[2026-11-16T05:23:02.285Z] BUILD SUCCESSFUL in 4s
+[2026-11-16T05:23:02.285Z] 5 actionable tasks: 3 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2026-11-16T05:23:02.498Z] Archiving artifacts
+[2026-11-16T05:23:02.506Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

@@ -1,0 +1,18 @@
+$ date; hostname
+Mon Nov 16 05:22:49 UTC 2026
+hospet
+
+$ journalctl -u bu-campus-api -n 20 --no-pager
+Nov 16 05:22:13 hospet systemd[1]: Started bu-campus-api.service - Better University Campus API 1.0.0.
+Nov 16 05:22:14 hospet java[65679]: 05:22:14.848 INFO  i.k.s.Application - Autoreload is disabled because the development mode is off.
+Nov 16 05:22:14 hospet java[65679]: 05:22:14.916 INFO  i.k.s.Application - Application started in 0.385 seconds.
+Nov 16 05:22:15 hospet java[65679]: 05:22:15.098 INFO  i.k.s.Application - Responding at http://0.0.0.0:8081
+Nov 16 05:22:34 hospet systemd[1]: Stopping bu-campus-api.service - Better University Campus API 1.1.0...
+Nov 16 05:22:36 hospet systemd[1]: bu-campus-api.service: Main process exited, code=exited, status=143/n/a
+Nov 16 05:22:36 hospet systemd[1]: bu-campus-api.service: Failed with result 'exit-code'.
+Nov 16 05:22:36 hospet systemd[1]: Stopped bu-campus-api.service - Better University Campus API 1.1.0.
+Nov 16 05:22:36 hospet systemd[1]: bu-campus-api.service: Consumed 1.853s CPU time, 124.3M memory peak.
+Nov 16 05:22:36 hospet systemd[1]: Started bu-campus-api.service - Better University Campus API 1.1.0.
+Nov 16 05:22:37 hospet java[67398]: 05:22:37.162 INFO  i.k.s.Application - Autoreload is disabled because the development mode is off.
+Nov 16 05:22:37 hospet java[67398]: 05:22:37.228 INFO  i.k.s.Application - Application started in 0.347 seconds.
+Nov 16 05:22:37 hospet java[67398]: 05:22:37.402 INFO  i.k.s.Application - Responding at http://0.0.0.0:8081

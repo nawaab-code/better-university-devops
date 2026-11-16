@@ -1,9 +1,14 @@
-ansible [core 2.21.6]
-  config file = /Users/arushyadav/Development/Nawaab Labs/Better University Repos/better-university-devops/.claude/worktrees/feature-ansible-deploy-2b3201/ansible/ansible.cfg
-  configured module search path = ['/Users/arushyadav/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /opt/homebrew/Cellar/ansible/14.6.0/libexec/lib/python3.15/site-packages/ansible
-  ansible collection location = /Users/arushyadav/.ansible/collections:/usr/share/ansible/collections
-  executable location = /opt/homebrew/bin/ansible
-  python version = 3.15.2 (main, Oct 25 2026, 16:57:51) [Clang 21.0.0 (clang-2100.3.34.2)] (/opt/homebrew/Cellar/ansible/14.6.0/libexec/bin/python)
+$ date; hostname
+Mon Nov 16 05:22:05 UTC 2026
+hospet
+
+$ ansible --version
+ansible [core 2.19.0]
+  config file = /home/nawaab/wt/ansible/ansible/ansible.cfg
+  configured module search path = ['/home/nawaab/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  ansible collection location = /home/nawaab/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible
+  python version = 3.13.7 (main, Mar  3 2026, 12:19:54) [GCC 15.2.0] (/usr/bin/python3)
   jinja version = 3.1.6
-  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+  pyyaml version = 6.0.2 (with libyaml v0.2.5)

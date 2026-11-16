@@ -7,32 +7,26 @@ installs a systemd unit and checks `/health`. Evidence is in `evidence/component
 
 ```
 ansible/
-  ansible.cfg            inventory path, roles path, no host-key prompt
-  inventory.ini          group campus_api -> 127.0.0.1:2222, user deployer, demo key
-  playbook.yml           one play that applies the role
+  ansible.cfg            inventory path, roles path
+  inventory.ini          group campus_api -> host hospet (127.0.0.1) over SSH, user nawaab, demo key
+  playbook.yml           one play (become: true) that applies the role
   roles/bu_campus_api/   made with `ansible-galaxy init roles/bu_campus_api`
-  target-host/           Dockerfile + start.sh for the systemd target container
 ```
 
 ## The target host
 
-Ansible needs a machine reachable over SSH that runs systemd. A normal container does not run systemd,
-so `ansible/target-host/Dockerfile` builds an Ubuntu 24.04 image where `/sbin/init` (systemd) is PID 1
-and `openssh-server` is enabled. `start.sh` runs it on the Colima Docker as `bu-ansible-target`:
+The target is the VM `hospet` (Ubuntu 25.10, real systemd as PID 1) itself. It is managed over SSH, not with
+`ansible_connection=local`, so the run is the same as for a remote server:
 
-| Setting | Why |
-|---|---|
-| `--privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw` | systemd must manage cgroups (cgroup v2 on Colima) |
-| `--tmpfs /run --tmpfs /run/lock --tmpfs /tmp` | systemd expects these to be tmpfs |
-| `STOPSIGNAL SIGRTMIN+3` | the signal systemd treats as a clean shutdown |
-| `-p 2222:22` | SSH from the Mac |
-| `-p 18081:8081` | the app (`app_port` 8081 inside) reachable from the Mac |
-| masked getty/udev/remount-fs units | they only fail without hardware |
-| user `deployer`, key-only SSH, passwordless sudo | Ansible logs in as a normal user and uses `become` |
+```bash
+ssh-keygen -t ed25519 -N "" -f ~/.ssh/bu-ansible-demo        # private key never committed
+cat ~/.ssh/bu-ansible-demo.pub >> ~/.ssh/authorized_keys
+```
 
-The key pair is `~/.ssh/bu-ansible-demo` (ed25519, created by `start.sh` if missing, outside the repo).
-Only the public key is copied into the container. Verification: `ps -p 1` shows `systemd`
-and `systemctl status bu-campus-api` works (`07-systemctl-status`).
+`inventory.ini` has `hospet ansible_host=127.0.0.1 ansible_user=nawaab
+ansible_ssh_private_key_file=~/.ssh/bu-ansible-demo` in group `campus_api`. The user has passwordless sudo,
+so `become: true` works. The service listens on port 8081 (`app_port`), because Jenkins uses 8080.
+The earlier Mac/Docker systemd container (`ansible/target-host/`) was removed; it remains in git history.
 
 ## Why each Ansible piece
 
@@ -58,7 +52,6 @@ and `systemctl status bu-campus-api` works (`07-systemctl-status`).
 ## How to rerun
 
 ```bash
-./ansible/target-host/start.sh            # (re)create the target container
 ./gradlew build -PappVersion=1.0.0        # JAR for the role
 cd ansible
 ansible -i inventory.ini campus_api -m ping
@@ -67,35 +60,36 @@ ansible-playbook -i inventory.ini playbook.yml                       # first run
 ansible-playbook -i inventory.ini playbook.yml                       # second run: changed=0
 cd .. && ./gradlew build -PappVersion=1.1.0 && cd ansible
 ansible-playbook -i inventory.ini playbook.yml -e app_version=1.1.0   # new JAR: handler fires
-curl http://127.0.0.1:18081/health
+curl http://127.0.0.1:8081/health
 ```
 
-## Results
+## Results (real recaps from `hospet`)
 
 | Run | PLAY RECAP | Handler |
 |---|---|---|
-| First (fresh host) | `ok=13 changed=9 failed=0` | fired |
+| First | `ok=13 changed=8 failed=0` | fired (`daemon reload`, `restart bu-campus-api`) |
 | Second (same inputs) | `ok=11 changed=0 failed=0` | not run |
 | New JAR, `app_version=1.1.0` | `ok=13 changed=4 failed=0` | fired; `/health` reports 1.1.0 |
 | Again with 1.1.0 | `ok=11 changed=0 failed=0` | not run |
 
+In the first run the JDK task is `ok`, not `changed`, because openjdk-17 was already on the VM; the 8 changes
+are the group, user, directory, JAR, env file, unit, the restart handler and enabling the service.
 `changed=4` in the upgrade run is the JAR, the env file, the unit file (its `Description` contains the
-version) and the restart handler.
+version) and the restart handler. The two idempotent runs show `changed=0` and no `RUNNING HANDLER`
+line: Ansible compares desired state with the host and does nothing when they match.
+
+The service is left running on 8081 (`systemctl status bu-campus-api`, version 1.1.0).
 
 ## Problems hit and fixes
 
-- **systemd in a container** (the failure in the reference report): it worked on the first attempt with
-  the flags in the table above (privileged, host cgroup namespace, writable `/sys/fs/cgroup`, tmpfs on
-  `/run`, `/sbin/init` as PID 1). `systemctl is-system-running` returned `running`.
+- **Repo git config**: `.git/config` of the main clone had `user.name=user.email` (a typo). Commits for this
+  work override the author with `GIT_AUTHOR_NAME`/`GIT_COMMITTER_NAME` instead of editing shared config.
 - **`daemon reload` shows `ok`, not `changed`**: `systemd_service` with `daemon_reload` does not report a
-  change, even though it ran. The `RUNNING HANDLER` line is the evidence.
-- **Slow first run**: installing the JDK inside the container took about two minutes (see the
-  task timings in `03-first-run.log`). Later runs skip it (`cache_valid_time`, package present).
-- **Capture glitches (not product bugs)**: my first `systemctl status` capture contained terminal
-  hyperlink escape codes from systemd; I re-ran it with `SYSTEMD_URLIFY=0`. An ad-hoc `ssh` used for the
-  capture first failed with `Host key verification failed` until `StrictHostKeyChecking=no`
-  was added. The ansible runs themselves needed no retries.
-- **Limitations**: the target is a privileged container on the same Mac, not a separate VM; the
-  container's host key changes when it is recreated (so the inventory uses `/dev/null` as known_hosts and
-  `ansible.cfg` disables host-key checking); the private demo key is not in the repository, so the
-  container must be created with `start.sh` on the machine that runs Ansible.
+  change even though it ran. The `RUNNING HANDLER` line is the evidence.
+- **Port clash avoided**: 8080 belongs to Jenkins on this VM, hence `app_port: 8081`.
+- **Capture details**: `SYSTEMD_URLIFY=0 SYSTEMD_COLORS=0` keep hyperlink escape codes out of the
+  `systemctl` log. My first timetable request used section `A`, which returns the 404
+  `no timetable for section A` (kept in `08-curl-api.log`); the valid section `CY-5A` is in `08b`.
+- **Limitations**: the target is the control machine itself (SSH to 127.0.0.1), not a separate server; the
+  private demo key is not in the repository, so the key pair must be generated on the machine that runs
+  Ansible; the POSTed announcement is in memory only.
