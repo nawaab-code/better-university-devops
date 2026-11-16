@@ -1,0 +1,36 @@
+Mon Nov 16 05:40:13 UTC 2026
+hospet
+
+$ kubectl get pods (before scaling)
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-55bcc86994-jb7lf   1/1     Running   0          11m
+bu-campus-api-55bcc86994-sx4sg   1/1     Running   0          12m
+bu-campus-api-55bcc86994-vpmc9   1/1     Running   0          11m
+
+$ kubectl scale deployment bu-campus-api --replicas=5
+deployment.apps/bu-campus-api scaled
+Waiting for deployment "bu-campus-api" rollout to finish: 3 out of 5 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 3 out of 5 new replicas have been updated...
+Waiting for deployment "bu-campus-api" rollout to finish: 3 of 5 updated replicas are available...
+Waiting for deployment "bu-campus-api" rollout to finish: 4 of 5 updated replicas are available...
+deployment "bu-campus-api" successfully rolled out
+
+$ kubectl get pods (scaled to five)
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-55bcc86994-8xshb   1/1     Running   0          9s
+bu-campus-api-55bcc86994-jb7lf   1/1     Running   0          12m
+bu-campus-api-55bcc86994-rxlhp   1/1     Running   0          9s
+bu-campus-api-55bcc86994-sx4sg   1/1     Running   0          12m
+bu-campus-api-55bcc86994-vpmc9   1/1     Running   0          11m
+
+$ kubectl scale deployment bu-campus-api --replicas=3
+deployment.apps/bu-campus-api scaled
+deployment "bu-campus-api" successfully rolled out
+
+$ kubectl get pods (scaled back to three)
+NAME                             READY   STATUS        RESTARTS   AGE
+bu-campus-api-55bcc86994-8xshb   1/1     Terminating   0          9s
+bu-campus-api-55bcc86994-jb7lf   1/1     Running       0          12m
+bu-campus-api-55bcc86994-rxlhp   1/1     Terminating   0          9s
+bu-campus-api-55bcc86994-sx4sg   1/1     Running       0          12m
+bu-campus-api-55bcc86994-vpmc9   1/1     Running       0          11m

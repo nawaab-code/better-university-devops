@@ -1,0 +1,22 @@
+Mon Nov 16 05:34:01 UTC 2026
+hospet
+
+$ kubectl get deploy,rs,pods; kubectl get svc; curl -fsS http://localhost:30080/health; echo; curl -fsS http://localhost:8081/health; echo
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   3/3     3            3           8m54s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-55bcc86994   3         3         3       5m50s
+replicaset.apps/bu-campus-api-58476c6d46   0         0         0       7m35s
+replicaset.apps/bu-campus-api-794bccfdfc   0         0         0       6m55s
+replicaset.apps/bu-campus-api-84dcc87b67   0         0         0       8m54s
+
+NAME                                 READY   STATUS    RESTARTS   AGE
+pod/bu-campus-api-55bcc86994-jb7lf   1/1     Running   0          5m42s
+pod/bu-campus-api-55bcc86994-sx4sg   1/1     Running   0          5m50s
+pod/bu-campus-api-55bcc86994-vpmc9   1/1     Running   0          5m34s
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+bu-campus-api   NodePort    10.96.164.238   <none>        80:30080/TCP   8m54s
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        9m13s
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+{"status":"UP","service":"bu-campus-api","version":"1.1.0"}

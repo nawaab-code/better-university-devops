@@ -22,11 +22,12 @@ All files are real captures from the VM `hospet` (Jenkins 2.580.2, Ubuntu 25.10)
 | `01-job-main-stage-view` | job page: stage view, versioned JARs, test trend |
 | `02`, `03` | build #2 and #4 pages: "Started by an SCM change", display name with version |
 | `04`/`06`, `05`/`07` | console of build #2 / #4: top (SCM cause) and bottom (archiving, `Finished: SUCCESS`) |
-| `08`, `09` | archived artifact list (`bu-campus-api-4-8014664-all.jar`, `...2-45b31c9...`) |
+| `08`, `09` | artifact root showing the build/libs folder (filenames require opening that folder; see review/10 and review/27) |
 | `10`, `11` | test result pages, 4 tests passing |
 | `12` | changes of build #4 |
 | `13` | SCM polling log page |
-| `14`, `15` | Jenkins About (2.580.2) and dashboard |
-| `16` | job `config.xml` viewed anonymously |
+| `14` | login redirect, not About/version evidence (retained failed navigation) |
+| `15` | dashboard |
+| `16` | login redirect, not config.xml evidence (retained failed navigation; use jenkins-logs/job-config.xml and authenticated config captures) |
 | `20`, `21`, `22`, `24` | configure page (as admin): general, Poll SCM `* * * * *`, Pipeline from SCM + repo URL, branch `*/main` + script path `Jenkinsfile` |
 | `30`-`34` | GitHub: branches, pull requests, commits on main, Actions runs (green), network graph |

@@ -1,0 +1,38 @@
+Mon Nov 16 05:39:21 UTC 2026
+hospet
+
+$ sed -n '25,34p' 03-apply-rollout.log
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   3/3     3            3           9s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-84dcc87b67   3         3         3       9s
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/bu-campus-api   NodePort    10.96.164.238   <none>        80:30080/TCP   9s
+service/kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        28s
+
+$ sed -n '31,41p' 08-scale-up-5.log
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   5/5     5            5           51s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-84dcc87b67   5         5         5       51s
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-84dcc87b67-8gszr   1/1     Running   0          20s
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          51s
+bu-campus-api-84dcc87b67-pxr9f   1/1     Running   0          20s
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          51s
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          51s
+
+$ sed -n '23,31p' 09-scale-down-3.log
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/bu-campus-api   3/3     3            3           71s
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/bu-campus-api-84dcc87b67   3         3         3       71s
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          71s
+bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          71s
+bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          71s

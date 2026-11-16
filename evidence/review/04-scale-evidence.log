@@ -1,0 +1,45 @@
+Mon Nov 16 05:33:59 UTC 2026
+hospet
+
+$ rg -n 'NAME|bu-campus-api.*(Running|DESIRED)|replicas=|Scaled (up|down)' evidence/component-2/kubernetes/{03-apply-rollout,08-scale-up-5,09-scale-down-3}.log
+evidence/component-2/kubernetes/09-scale-down-3.log:5:$ kubectl scale deployment bu-campus-api --replicas=3
+evidence/component-2/kubernetes/09-scale-down-3.log:9:05:25:58 NAME                             READY   STATUS        RESTARTS   AGE
+evidence/component-2/kubernetes/09-scale-down-3.log:11:05:25:58 bu-campus-api-84dcc87b67-gk9ng   1/1     Running       0          51s
+evidence/component-2/kubernetes/09-scale-down-3.log:13:05:25:58 bu-campus-api-84dcc87b67-r9j4l   1/1     Running       0          51s
+evidence/component-2/kubernetes/09-scale-down-3.log:14:05:25:58 bu-campus-api-84dcc87b67-sdsgc   1/1     Running       0          51s
+evidence/component-2/kubernetes/09-scale-down-3.log:23:NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+evidence/component-2/kubernetes/09-scale-down-3.log:26:NAME                                       DESIRED   CURRENT   READY   AGE
+evidence/component-2/kubernetes/09-scale-down-3.log:28:NAME                             READY   STATUS    RESTARTS   AGE
+evidence/component-2/kubernetes/09-scale-down-3.log:29:bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          71s
+evidence/component-2/kubernetes/09-scale-down-3.log:30:bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          71s
+evidence/component-2/kubernetes/09-scale-down-3.log:31:bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          71s
+evidence/component-2/kubernetes/09-scale-down-3.log:34:71s         Normal   ScalingReplicaSet         deployment/bu-campus-api              Scaled up replica set bu-campus-api-84dcc87b67 from 0 to 3
+evidence/component-2/kubernetes/09-scale-down-3.log:35:40s         Normal   ScalingReplicaSet         deployment/bu-campus-api              Scaled up replica set bu-campus-api-84dcc87b67 from 3 to 5
+evidence/component-2/kubernetes/09-scale-down-3.log:36:20s         Normal   ScalingReplicaSet         deployment/bu-campus-api              Scaled down replica set bu-campus-api-84dcc87b67 from 5 to 3
+evidence/component-2/kubernetes/08-scale-up-5.log:6:NAME                       DESIRED   CURRENT   READY   AGE
+evidence/component-2/kubernetes/08-scale-up-5.log:9:$ kubectl scale deployment bu-campus-api --replicas=5
+evidence/component-2/kubernetes/08-scale-up-5.log:13:05:25:38 NAME                             READY   STATUS    RESTARTS   AGE
+evidence/component-2/kubernetes/08-scale-up-5.log:15:05:25:38 bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          31s
+evidence/component-2/kubernetes/08-scale-up-5.log:17:05:25:38 bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          31s
+evidence/component-2/kubernetes/08-scale-up-5.log:18:05:25:38 bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          31s
+evidence/component-2/kubernetes/08-scale-up-5.log:22:05:25:39 bu-campus-api-84dcc87b67-pxr9f   0/1     Running             0          1s
+evidence/component-2/kubernetes/08-scale-up-5.log:23:05:25:39 bu-campus-api-84dcc87b67-8gszr   0/1     Running             0          1s
+evidence/component-2/kubernetes/08-scale-up-5.log:24:05:25:46 bu-campus-api-84dcc87b67-pxr9f   1/1     Running             0          8s
+evidence/component-2/kubernetes/08-scale-up-5.log:25:05:25:46 bu-campus-api-84dcc87b67-8gszr   1/1     Running             0          8s
+evidence/component-2/kubernetes/08-scale-up-5.log:31:NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+evidence/component-2/kubernetes/08-scale-up-5.log:34:NAME                                       DESIRED   CURRENT   READY   AGE
+evidence/component-2/kubernetes/08-scale-up-5.log:36:NAME                             READY   STATUS    RESTARTS   AGE
+evidence/component-2/kubernetes/08-scale-up-5.log:37:bu-campus-api-84dcc87b67-8gszr   1/1     Running   0          20s
+evidence/component-2/kubernetes/08-scale-up-5.log:38:bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          51s
+evidence/component-2/kubernetes/08-scale-up-5.log:39:bu-campus-api-84dcc87b67-pxr9f   1/1     Running   0          20s
+evidence/component-2/kubernetes/08-scale-up-5.log:40:bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          51s
+evidence/component-2/kubernetes/08-scale-up-5.log:41:bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          51s
+evidence/component-2/kubernetes/08-scale-up-5.log:44:NAME            ENDPOINTS                                                     AGE
+evidence/component-2/kubernetes/03-apply-rollout.log:19:NAME                             READY   STATUS    RESTARTS   AGE   IP           NODE                      NOMINATED NODE   READINESS GATES   LABELS
+evidence/component-2/kubernetes/03-apply-rollout.log:20:bu-campus-api-84dcc87b67-gk9ng   1/1     Running   0          9s    10.244.0.5   bu-campus-control-plane   <none>           <none>            app=bu-campus-api,pod-template-hash=84dcc87b67,tier=backend
+evidence/component-2/kubernetes/03-apply-rollout.log:21:bu-campus-api-84dcc87b67-r9j4l   1/1     Running   0          9s    10.244.0.6   bu-campus-control-plane   <none>           <none>            app=bu-campus-api,pod-template-hash=84dcc87b67,tier=backend
+evidence/component-2/kubernetes/03-apply-rollout.log:22:bu-campus-api-84dcc87b67-sdsgc   1/1     Running   0          9s    10.244.0.7   bu-campus-control-plane   <none>           <none>            app=bu-campus-api,pod-template-hash=84dcc87b67,tier=backend
+evidence/component-2/kubernetes/03-apply-rollout.log:26:NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+evidence/component-2/kubernetes/03-apply-rollout.log:29:NAME                                       DESIRED   CURRENT   READY   AGE
+evidence/component-2/kubernetes/03-apply-rollout.log:32:NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+evidence/component-2/kubernetes/03-apply-rollout.log:36:NAME                      ENDPOINTS                                         AGE

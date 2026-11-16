@@ -1,0 +1,28 @@
+Mon Nov 16 05:39:24 UTC 2026
+hospet
+
+$ tail -12 01-docker-build.log
+#19 exporting manifest sha256:184503a67636e39593e0fda37b4bab200f889a487f305d74f895ffeaca08739d 0.0s done
+#19 exporting config sha256:dcdc97004ff84551b9e2dee1d3ac7dddb7712cebcecb2840884e56ab0295e6e2 0.0s done
+#19 exporting attestation manifest sha256:0779c72abad1086f657c248a7dc5f89e560a84ccc95cb4c0d5c7896ce2ee02ac 0.1s done
+#19 exporting manifest list sha256:2617656dec5f87c9d5c6aaf29d8876f4b446002dcccb4032fdce4d69a11afb34
+#19 exporting manifest list sha256:2617656dec5f87c9d5c6aaf29d8876f4b446002dcccb4032fdce4d69a11afb34 0.0s done
+#19 naming to docker.io/library/bu-campus-api:1.0.0 done
+#19 unpacking to docker.io/library/bu-campus-api:1.0.0 0.2s done
+#19 DONE 0.9s
+
+real	2m44.002s
+user	0m0.307s
+sys	0m0.899s
+
+$ sed -n '5,14p' 03-docker-images-history.log
+$ docker images | grep bu-campus-api
+WARNING: This output is designed for human readability. For machine-readable output, please use --format.
+bu-campus-api:1.0.0         2617656dec5f        286MB           82MB        
+bu-campus-api:build-stage   35562d2b513c       2.24GB          761MB        
+
+$ docker image inspect sizes (MB)
+build-stage: 761 MB
+1.0.0: 82 MB
+
+$ docker history bu-campus-api:1.0.0

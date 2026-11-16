@@ -1,0 +1,19 @@
+Mon Nov 16 05:34:04 UTC 2026
+hospet
+
+$ rg -n 'curl|version|patched|restart|successfully rolled' evidence/component-2/kubernetes/10-configmap-change.log
+5:$ curl -s localhost:30080/health   (before)
+6:{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+9:configmap/bu-campus-api-config patched
+11:$ curl -s localhost:30080/health   (env vars are read at container start -> unchanged until restart)
+12:{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+14:$ kubectl rollout restart deployment/bu-campus-api
+15:deployment.apps/bu-campus-api restarted
+27:deployment "bu-campus-api" successfully rolled out
+39:$ for i in 1..6: curl -s localhost:30080/health
+40:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+41:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+42:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+43:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+44:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}
+45:{"status":"UP","service":"bu-campus-api","version":"1.0.1-configmap"}

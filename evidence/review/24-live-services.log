@@ -1,0 +1,23 @@
+Mon Nov 16 05:42:06 UTC 2026
+hospet
+
+$ kubectl get deploy
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+bu-campus-api   3/3     3            3           16m
+
+$ kubectl get pods
+NAME                             READY   STATUS    RESTARTS   AGE
+bu-campus-api-55bcc86994-jb7lf   1/1     Running   0          13m
+bu-campus-api-55bcc86994-sx4sg   1/1     Running   0          13m
+bu-campus-api-55bcc86994-vpmc9   1/1     Running   0          13m
+
+$ kubectl get svc
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+bu-campus-api   NodePort    10.96.164.238   <none>        80:30080/TCP   16m
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        17m
+
+$ curl localhost:30080/health
+{"status":"UP","service":"bu-campus-api","version":"1.0.0"}
+
+$ curl localhost:8081/health
+{"status":"UP","service":"bu-campus-api","version":"1.1.0"}

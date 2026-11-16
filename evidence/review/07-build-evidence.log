@@ -1,0 +1,34 @@
+Mon Nov 16 05:34:02 UTC 2026
+hospet
+
+$ tail -25 evidence/component-1/jenkins-logs/build-4-console.log; gh run list --branch main --limit 5
+[2026-11-16T05:25:26.523Z] > Task :shadowDistZip SKIPPED
+[2026-11-16T05:25:26.523Z] > Task :assemble
+[2026-11-16T05:25:26.523Z] > Task :buildFatJar
+[2026-11-16T05:25:26.523Z] > Task :check
+[2026-11-16T05:25:26.523Z] > Task :build
+[2026-11-16T05:25:26.523Z] 
+[2026-11-16T05:25:26.523Z] BUILD SUCCESSFUL in 3s
+[2026-11-16T05:25:26.523Z] 5 actionable tasks: 3 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2026-11-16T05:25:26.723Z] Archiving artifacts
+[2026-11-16T05:25:26.734Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+completed	success	Merge pull request #12 from nawaab-code/feature/kubernetes-on-vm	CI	main	push	43810619806	1m0s	2026-11-16T05:29:57Z
+completed	success	Merge pull request #11 from nawaab-code/docs/jenkins-evidence	CI	main	push	43810570912	58s	2026-11-16T05:29:30Z
+completed	success	Merge pull request #10 from nawaab-code/docs/jenkins-second-change	CI	main	push	43810068975	50s	2026-11-16T05:24:57Z
+completed	success	Merge pull request #9 from nawaab-code/feature/ansible-on-vm	CI	main	push	43809966549	56s	2026-11-16T05:23:59Z
+completed	success	Merge pull request #8 from nawaab-code/feature/jenkins-on-vm	CI	main	push	43809919588	52s	2026-11-16T05:23:32Z

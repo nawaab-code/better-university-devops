@@ -1,0 +1,31 @@
+Mon Nov 16 05:42:08 UTC 2026
+hospet
+
+$ kubectl get deploy bu-campus-api -o json
+# selected probe fields from the API response
+{
+  "readinessProbe": {
+    "failureThreshold": 3,
+    "httpGet": {
+      "path": "/health",
+      "port": "http",
+      "scheme": "HTTP"
+    },
+    "initialDelaySeconds": 5,
+    "periodSeconds": 5,
+    "successThreshold": 1,
+    "timeoutSeconds": 2
+  },
+  "livenessProbe": {
+    "failureThreshold": 3,
+    "httpGet": {
+      "path": "/health",
+      "port": "http",
+      "scheme": "HTTP"
+    },
+    "initialDelaySeconds": 15,
+    "periodSeconds": 10,
+    "successThreshold": 1,
+    "timeoutSeconds": 2
+  }
+}
