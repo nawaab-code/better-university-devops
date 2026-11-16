@@ -1,0 +1,10 @@
+---
+# Defaults for the bu_campus_api role. Override in playbook vars, inventory or -e.
+app_port: 8081                 # port the service listens on INSIDE the target host
+app_version: "1.0.0"           # selects the JAR and is reported by /health (APP_VERSION)
+app_user: bu-campus            # unprivileged system account that runs the service
+app_dir: /opt/bu-campus-api    # install directory on the target host
+# JAR built by `./gradlew build -PappVersion=<app_version>`, on the control machine
+jar_src: "{{ playbook_dir }}/../build/libs/bu-campus-api-{{ app_version }}-all.jar"
+health_retries: 15             # attempts for the /health check
+health_delay: 2                # seconds between attempts

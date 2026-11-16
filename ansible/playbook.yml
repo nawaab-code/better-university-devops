@@ -1,0 +1,9 @@
+---
+- name: Deploy Better University Campus API as a systemd service
+  hosts: campus_api
+  become: true
+  vars:
+    app_port: 8081
+    app_version: "1.0.0"
+  roles:
+    - bu_campus_api

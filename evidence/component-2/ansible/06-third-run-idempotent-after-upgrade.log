@@ -1,0 +1,71 @@
+
+PLAY [Deploy Better University Campus API as a systemd service] ****************
+
+TASK [Gathering Facts] *********************************************************
+Monday 16 November 2026  10:22:49 +0530 (0:00:00.029)       0:00:00.029 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Install OpenJDK 17 (headless JRE)] ***********************
+Monday 16 November 2026  10:22:50 +0530 (0:00:00.861)       0:00:00.891 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Create the service group] ********************************
+Monday 16 November 2026  10:22:53 +0530 (0:00:02.784)       0:00:03.676 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Create the service user (no login shell, no home)] *******
+Monday 16 November 2026  10:22:53 +0530 (0:00:00.395)       0:00:04.072 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Create the application directory] ************************
+Monday 16 November 2026  10:22:53 +0530 (0:00:00.412)       0:00:04.484 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Copy the Gradle-built JAR] *******************************
+Monday 16 November 2026  10:22:54 +0530 (0:00:00.396)       0:00:04.880 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Write the environment file (PORT, APP_VERSION)] **********
+Monday 16 November 2026  10:22:54 +0530 (0:00:00.616)       0:00:05.497 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Install the systemd unit] ********************************
+Monday 16 November 2026  10:22:55 +0530 (0:00:00.514)       0:00:06.011 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Run pending handlers now] ********************************
+Monday 16 November 2026  10:22:55 +0530 (0:00:00.534)       0:00:06.546 ******* 
+
+TASK [bu_campus_api : Enable the service at boot and make sure it is running] ***
+Monday 16 November 2026  10:22:55 +0530 (0:00:00.002)       0:00:06.548 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Check that /health returns 200] **************************
+Monday 16 November 2026  10:22:56 +0530 (0:00:00.547)       0:00:07.096 ******* 
+[0;32mok: [bu-target][0m
+
+TASK [bu_campus_api : Show the health response] ********************************
+Monday 16 November 2026  10:22:56 +0530 (0:00:00.471)       0:00:07.567 ******* 
+[0;32mok: [bu-target] => {[0m
+[0;32m    "msg": "{\"status\":\"UP\",\"service\":\"bu-campus-api\",\"version\":\"1.1.0\"}"[0m
+[0;32m}[0m
+
+PLAY RECAP *********************************************************************
+[0;32mbu-target[0m                  : [0;32mok=11  [0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Monday 16 November 2026  10:22:56 +0530 (0:00:00.017)       0:00:07.585 ******* 
+=============================================================================== 
+bu_campus_api : Install OpenJDK 17 (headless JRE) ----------------------- 2.78s
+Gathering Facts --------------------------------------------------------- 0.86s
+bu_campus_api : Copy the Gradle-built JAR ------------------------------- 0.62s
+bu_campus_api : Enable the service at boot and make sure it is running --- 0.55s
+bu_campus_api : Install the systemd unit -------------------------------- 0.53s
+bu_campus_api : Write the environment file (PORT, APP_VERSION) ---------- 0.51s
+bu_campus_api : Check that /health returns 200 -------------------------- 0.47s
+bu_campus_api : Create the service user (no login shell, no home) ------- 0.41s
+bu_campus_api : Create the application directory ------------------------ 0.40s
+bu_campus_api : Create the service group -------------------------------- 0.40s
+bu_campus_api : Show the health response -------------------------------- 0.02s
+bu_campus_api : Run pending handlers now -------------------------------- 0.00s

@@ -1,0 +1,15 @@
+$ curl -i http://127.0.0.1:18081/health
+HTTP/1.1 200 OK
+Content-Length: 59
+Content-Type: application/json
+
+{"status":"UP","service":"bu-campus-api","version":"1.1.0"}
+
+$ curl -s http://127.0.0.1:18081/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"}]
+
+$ curl -s -X POST http://127.0.0.1:18081/api/v1/announcements ...
+{"id":3,"title":"Deployed by Ansible","body":"Service is running under systemd","department":"ALL"}
+
+$ curl -s http://127.0.0.1:18081/api/v1/announcements
+[{"id":1,"title":"Semester timetable published","body":"The odd-semester timetable is now in the app.","department":"ALL"},{"id":2,"title":"DevOps lab moved","body":"Thursday's DevOps lab is in LHC-104.","department":"CY"},{"id":3,"title":"Deployed by Ansible","body":"Service is running under systemd","department":"ALL"}]
