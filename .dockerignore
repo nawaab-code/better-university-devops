@@ -1,0 +1,12 @@
+.git
+.gradle
+.kotlin
+.idea
+build
+evidence
+docs
+k8s
+*.md
+.DS_Store
+.worktrees
+.claude
