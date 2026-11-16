@@ -51,7 +51,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: 'build/libs/*-all.jar', fingerprint: true
+            archiveArtifacts artifacts: "build/libs/bu-campus-api-${env.APP_VERSION}-all.jar", fingerprint: true
         }
         failure {
             echo 'Build failed - see the console output above.'
