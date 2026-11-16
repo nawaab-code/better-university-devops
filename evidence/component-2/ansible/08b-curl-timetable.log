@@ -1,0 +1,6 @@
+$ date; hostname
+Mon Nov 16 05:22:53 UTC 2026
+hospet
+
+$ curl -s http://127.0.0.1:8081/api/v1/timetable/CY-5A
+[{"day":"MON","start":"09:00","end":"10:00","course":"DevOps","room":"LHC-104"},{"day":"MON","start":"10:00","end":"11:00","course":"Cryptography","room":"LHC-201"},{"day":"TUE","start":"11:30","end":"13:30","course":"Network Security Lab","room":"CY-LAB-2"}]
