@@ -1,22 +1,26 @@
-roles
-`-- bu_campus_api
-    |-- README.md
-    |-- defaults
-    |   `-- main.yml
-    |-- files
-    |-- handlers
-    |   `-- main.yml
-    |-- meta
-    |   `-- main.yml
-    |-- tasks
-    |   `-- main.yml
-    |-- templates
-    |   |-- bu-campus-api.env.j2
-    |   `-- bu-campus-api.service.j2
-    |-- tests
-    |   |-- inventory
-    |   `-- test.yml
-    `-- vars
-        `-- main.yml
+$ date; hostname
+Mon Nov 16 05:22:57 UTC 2026
+hospet
 
-10 directories, 10 files
+$ tree ansible/roles
+ansible/roles
+└── bu_campus_api
+    ├── defaults
+    │   └── main.yml
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── README.md
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    │   ├── bu-campus-api.env.j2
+    │   └── bu-campus-api.service.j2
+    ├── tests
+    │   ├── inventory
+    │   └── test.yml
+    └── vars
+        └── main.yml
+
+9 directories, 10 files
