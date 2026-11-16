@@ -1,0 +1,117 @@
+Started by an SCM change
+Checking out git https://github.com/nawaab-code/better-university-devops.git into /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65 to read Jenkinsfile
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/bu-campus-api@script/aba2efe3ae6237971be417e9b3ebe8e6227c396d3af56d3b1c331ee87876ac65/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/nawaab-code/better-university-devops.git # timeout=10
+Fetching upstream changes from https://github.com/nawaab-code/better-university-devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.51.0'
+ > git fetch --tags --force --progress -- https://github.com/nawaab-code/better-university-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 45b31c9695f50d327f75ce4bfd3d1d90f2cdbd74 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 45b31c9695f50d327f75ce4bfd3d1d90f2cdbd74 # timeout=10
+Commit message: "docs: keep the filled report out of git"
+ > git rev-list --no-walk c7c697a20f0ccd699738741e5f99b60c829b9016 # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/bu-campus-api
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-16T05:23:15.381Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] checkout
+[2026-11-16T05:23:15.592Z] The recommended git tool is: NONE
+[2026-11-16T05:23:15.592Z] No credentials specified
+[2026-11-16T05:23:15.592Z]  > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/bu-campus-api/.git # timeout=10
+[2026-11-16T05:23:15.594Z] Fetching changes from the remote Git repository
+[2026-11-16T05:23:15.596Z]  > git config remote.origin.url https://github.com/nawaab-code/better-university-devops.git # timeout=10
+[2026-11-16T05:23:15.597Z] Fetching upstream changes from https://github.com/nawaab-code/better-university-devops.git
+[2026-11-16T05:23:15.597Z]  > git --version # timeout=10
+[2026-11-16T05:23:15.599Z]  > git --version # 'git version 2.51.0'
+[2026-11-16T05:23:15.599Z]  > git fetch --tags --force --progress -- https://github.com/nawaab-code/better-university-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-16T05:23:16.512Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2026-11-16T05:23:16.514Z] Checking out Revision 45b31c9695f50d327f75ce4bfd3d1d90f2cdbd74 (refs/remotes/origin/main)
+[2026-11-16T05:23:16.514Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-16T05:23:16.516Z]  > git checkout -f 45b31c9695f50d327f75ce4bfd3d1d90f2cdbd74 # timeout=10
+[2026-11-16T05:23:16.552Z] Commit message: "docs: keep the filled report out of git"
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+[2026-11-16T05:23:16.749Z] Building version 2-45b31c9
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
+[2026-11-16T05:23:17.184Z] + ./gradlew test --console=plain
+[2026-11-16T05:23:17.735Z] Starting a Gradle Daemon (subsequent builds will be faster)
+[2026-11-16T05:23:24.218Z] > Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+[2026-11-16T05:23:24.218Z] > Task :compileKotlin UP-TO-DATE
+[2026-11-16T05:23:24.218Z] > Task :compileJava NO-SOURCE
+[2026-11-16T05:23:24.218Z] > Task :processResources UP-TO-DATE
+[2026-11-16T05:23:24.218Z] > Task :classes UP-TO-DATE
+[2026-11-16T05:23:24.469Z] > Task :jar
+[2026-11-16T05:23:24.469Z] > Task :compileTestKotlin UP-TO-DATE
+[2026-11-16T05:23:24.469Z] > Task :compileTestJava NO-SOURCE
+[2026-11-16T05:23:24.469Z] > Task :processTestResources NO-SOURCE
+[2026-11-16T05:23:24.469Z] > Task :testClasses UP-TO-DATE
+[2026-11-16T05:23:24.469Z] > Task :test UP-TO-DATE
+[2026-11-16T05:23:24.469Z] 
+[2026-11-16T05:23:24.469Z] BUILD SUCCESSFUL in 7s
+[2026-11-16T05:23:24.469Z] 5 actionable tasks: 1 executed, 4 up-to-date
+Post stage
+[Pipeline] junit
+[2026-11-16T05:23:25.064Z] Recording test results
+[2026-11-16T05:23:25.082Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+[2026-11-16T05:23:25.534Z] + ./gradlew build -x test -PappVersion=2-45b31c9 --console=plain
+[2026-11-16T05:23:26.446Z] > Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+[2026-11-16T05:23:26.446Z] > Task :compileKotlin UP-TO-DATE
+[2026-11-16T05:23:26.446Z] > Task :compileJava NO-SOURCE
+[2026-11-16T05:23:26.446Z] > Task :processResources UP-TO-DATE
+[2026-11-16T05:23:26.446Z] > Task :classes UP-TO-DATE
+[2026-11-16T05:23:26.446Z] > Task :jar
+[2026-11-16T05:23:26.997Z] > Task :startScripts
+[2026-11-16T05:23:26.997Z] > Task :distTar SKIPPED
+[2026-11-16T05:23:26.997Z] > Task :distZip SKIPPED
+[2026-11-16T05:23:28.860Z] > Task :shadowJar
+[2026-11-16T05:23:28.860Z] > Task :startShadowScripts SKIPPED
+[2026-11-16T05:23:28.860Z] > Task :shadowDistTar SKIPPED
+[2026-11-16T05:23:28.860Z] > Task :shadowDistZip SKIPPED
+[2026-11-16T05:23:28.860Z] > Task :assemble
+[2026-11-16T05:23:28.860Z] > Task :buildFatJar
+[2026-11-16T05:23:28.860Z] > Task :check
+[2026-11-16T05:23:28.860Z] > Task :build
+[2026-11-16T05:23:28.860Z] 
+[2026-11-16T05:23:28.860Z] BUILD SUCCESSFUL in 3s
+[2026-11-16T05:23:28.860Z] 5 actionable tasks: 3 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2026-11-16T05:23:29.065Z] Archiving artifacts
+[2026-11-16T05:23:29.070Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

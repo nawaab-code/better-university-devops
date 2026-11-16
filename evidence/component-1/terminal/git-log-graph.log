@@ -1,0 +1,48 @@
+$ date; hostname
+Mon Nov 16 05:28:14 UTC 2026
+hospet
+
+$ git log --graph --oneline --decorate --all
+*   8014664 (HEAD -> docs/jenkins-evidence, origin/main, origin/HEAD, docs/jenkins-second-change) Merge pull request #10 from nawaab-code/docs/jenkins-second-change
+|\  
+| * 016d735 (origin/docs/jenkins-second-change) docs: note the second polled change in the jenkins doc
+* |   b86e0c9 Merge pull request #9 from nawaab-code/feature/ansible-on-vm
+|\ \  
+| |/  
+|/|   
+| *   a6d4105 (origin/feature/ansible-on-vm, feature/ansible-on-vm) Merge remote-tracking branch 'origin/main' into feature/ansible-on-vm
+| |\  
+| |/  
+|/|   
+* |   754533a Merge pull request #8 from nawaab-code/feature/jenkins-on-vm
+|\ \  
+| * | 2a139fd (origin/feature/jenkins-on-vm, feature/jenkins-on-vm) jenkins: adapt jcasc, plugins and install script for the linux vm
+* | | 45b31c9 docs: keep the filled report out of git
+|/ /  
+| * 157bb89 ansible: target the hospet VM over ssh and recapture evidence
+|/  
+| *   360c6aa (feature/kubernetes-on-vm) Merge remote-tracking branch 'origin/main' into feature/kubernetes-on-vm
+| |\  
+| |/  
+|/|   
+* | c7c697a (main) docs: add the course report template and logo
+* |   3dba7fa Merge pull request #7 from nawaab-code/claude/feature-ansible-deploy-2b3201
+|\ \  
+| * \   8562fa8 (origin/claude/feature-ansible-deploy-2b3201) merge: main into claude/feature-ansible-deploy-2b3201
+| |\ \  
+| |/ /  
+|/| |   
+* | |   930ebbe merge: claude/feature-jenkins-pipeline-0d2701 into main (#6)
+|\ \ \  
+| * | | f7fa950 (origin/claude/feature-jenkins-pipeline-0d2701) ci: jenkinsfile, jcasc config and github actions workflow
+|/ / /  
+| * / 7366302 ansible: role and playbook deploying the campus api as a systemd service
+|/ /  
+| * 2cfa79c (origin/claude/feature-kubernetes-deploy-7150cc) docker: dockerfile and k8s manifests (not yet run)
+|/  
+*   6ac5305 merge: feature/campus-endpoints into main (#1)
+|\  
+| * 4466b50 (origin/feature/campus-endpoints) feat: announcements and timetable endpoints with tests
+|/  
+* 24701b1 feat: gradle kotlin service with a health endpoint
+
