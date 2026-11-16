@@ -1,0 +1,21 @@
+# The Pipeline job, defined with the Job DSL plugin through JCasC.
+# The pipeline itself lives in the Jenkinsfile at the root of the repository.
+jobs:
+  - script: >
+      pipelineJob('bu-campus-api') {
+        description('Better University Campus API: test, build and archive the versioned JAR.')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/nawaab-code/better-university-devops.git')
+                }
+                branch('*/main')
+              }
+            }
+            scriptPath('Jenkinsfile')
+            lightweight(false)
+          }
+        }
+      }
