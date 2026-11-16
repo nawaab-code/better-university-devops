@@ -1,0 +1,40 @@
+# Jenkins Configuration as Code: controller, security and permissions.
+# The admin password is NOT in this file: it is read from a file inside the Jenkins home
+# (outside any repository). install.sh replaces __JENKINS_HOME__ with the real path
+# when it copies this file into place.
+jenkins:
+  systemMessage: "Better University Campus API - CI (local Jenkins, DevOps Component 1)"
+  numExecutors: 2
+  mode: NORMAL
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${readFile:__JENKINS_HOME__/bu-admin-password}"
+  authorizationStrategy:
+    globalMatrix:
+      entries:
+        - user:
+            name: "admin"
+            permissions:
+              - "Overall/Administer"
+        # Anonymous visitors can look but not touch, so pages can be screenshotted without logging in.
+        - user:
+            name: "anonymous"
+            permissions:
+              - "Overall/Read"
+              - "Job/Read"
+              - "Job/ExtendedRead"
+              - "Run/Artifacts"
+              - "View/Read"
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: "JAVA_HOME"
+            value: "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+          - key: "PATH"
+            value: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+unclassified:
+  location:
+    url: "http://localhost:8080/"
