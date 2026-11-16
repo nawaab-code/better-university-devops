@@ -4,7 +4,7 @@ name: bu-campus
 nodes:
   - role: control-plane
     extraPortMappings:
-      # Expose the Service's NodePort on the Mac so curl localhost:30080 works.
+      # Expose the Service's NodePort on the VM host so curl localhost:30080 works.
       - containerPort: 30080
         hostPort: 30080
         listenAddress: "127.0.0.1"

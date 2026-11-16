@@ -25,7 +25,7 @@ Jenkins (apt package `jenkins`, service `jenkins`, home `/var/lib/jenkins`, port
 
 ## 2. The pipeline (`Jenkinsfile`)
 `Checkout` (explicit `checkout scm`, computes the version) → `Test` (`./gradlew test`, results published with `junit`) →
-`Build` (`./gradlew build -x test -PappVersion=<version>`) → on success `archiveArtifacts 'build/libs/*-all.jar', fingerprint: true`.
+`Build` (`./gradlew build -x test -PappVersion=<version>`) → on success `archiveArtifacts` selects only `bu-campus-api-${APP_VERSION}-all.jar` and fingerprints it.
 The Jenkinsfile needed **no change to run on Linux**; only a `java -version` / `gradlew --version` line was added to the Test stage so the console proves JDK 17 is used.
 
 ### Versioning
@@ -34,7 +34,7 @@ description, and the JAR name `bu-campus-api-4-8014664-all.jar` (Gradle reads `-
 through `APP_VERSION`). The version therefore ties every artifact to a build and an exact commit.
 
 ### Test stage
-Tests run before the build so a failing test stops the pipeline before any artifact exists. 4 JUnit 5 tests
+Tests run before packaging so a failing test stops publication of a new artifact. 4 JUnit 5 tests
 (`CampusApiTest` ×3, `HealthTest` ×1); the JUnit XML is published (*Tests* page, test-result trend on the job page).
 
 ## 3. Polling vs webhook
@@ -75,3 +75,6 @@ and the versioned JAR archived (`evidence/component-1/screenshots/`). Build #3 w
 
 ## 7. Second automatic build
 This paragraph was pushed to `main` (PR #10) only to give Jenkins a second real change to pick up by polling.
+
+## Reviewer correction
+The original wildcard also archived older versioned JARs left in the Jenkins workspace (build #4 contains four JARs). The post action now selects the exact current version. The old screenshots remain historical evidence; the final review captures show the corrected build. PR #8 merged as `754533a` but build #2 checked out `45b31c9`, the branch tip selected during the polling/merge timing. These are different commits.

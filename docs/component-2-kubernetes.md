@@ -1,6 +1,6 @@
 # Component 2 (part 2): Docker image and Kubernetes deployment
 
-Evidence: `evidence/component-2/docker/` and `evidence/component-2/kubernetes/`. Everything below was run on VM `hospet` (Docker 28+, kind v1.33.1 single node `bu-campus`).
+Evidence: `evidence/component-2/docker/` and `evidence/component-2/kubernetes/`. Everything below was run on VM `hospet` (Docker 29.1.3, kind v0.29.0 / Kubernetes v1.33.1 single node `bu-campus`).
 
 ## 1. Docker: multi-stage image
 
@@ -27,11 +27,11 @@ In the rollback demo both fired against the broken image (events in `12-rollout-
 
 **Scaling.** `kubectl scale --replicas=5` created two pods that were Ready about 8 s later (JVM start + readiness delay); scaling to 3 terminated two. Same ReplicaSet throughout (`DESIRED` 3→5→3). Observation: terminating pods showed `Error` status because the JVM exits with code 143 on SIGTERM; harmless here.
 
-**Rollback.** The broken image `bu-campus-api:2.0.0-broken` was built from a throwaway Dockerfile in `/tmp` (copy in the evidence folder; **no broken code was committed**): `FROM bu-campus-api:1.0.0` with an overridden `ENTRYPOINT` that sleeps instead of starting the server, so nothing listens on 8080. `kubectl set image` created a new ReplicaSet; its pod never became Ready (readiness refused, then liveness kill), and because `maxUnavailable: 0` the 3 old pods stayed up: 30 consecutive `/health` calls all returned 200. `kubectl rollout undo` re-activated the previous ReplicaSet (revision 2 became revision 4), the broken pod was terminated, and 3/3 were Ready again on 1.0.0.
+**Rollback.** The broken image `bu-campus-api:2.0.0-broken` was built from a throwaway Dockerfile in `/tmp` (copy in the evidence folder; **no broken code was committed**): `FROM bu-campus-api:1.0.0` with an overridden `ENTRYPOINT` that sleeps instead of starting the server, so nothing listens on 8080. `kubectl set image` created a new ReplicaSet; its pod never became Ready (readiness refused, then liveness kill), and because `maxUnavailable: 0` the 3 old pods stayed up: 30 consecutive `/health` calls all returned 200. `kubectl rollout undo` re-activated the previous ReplicaSet (revision 2 became revision 4), the broken pod was terminated, and 3/3 were Ready again on image 1.0.0. At this point `/health` still reported `1.0.1-configmap`; the ConfigMap was restored separately in `14-final-state`.
 
 ## 3. Prometheus and `/health`
 
-Prometheus scrapes HTTP endpoints that return text in its exposition format. Today `/health` returns JSON `{"status":"UP",...}`: Prometheus could probe it with the blackbox exporter (up/down, latency, HTTP status), and `up{job=...}` per pod works with Kubernetes service discovery, but it only says *alive or not*. A `/metrics` endpoint (e.g. Micrometer `PrometheusMeterRegistry` in Ktor) would add request count and latency histograms per route/status, JVM heap/GC/threads, and custom counters such as announcements created, enabling alerts like error rate > 5% or p95 latency.
+Prometheus scrapes HTTP endpoints that return text in its exposition format. Today `/health` returns JSON `{"status":"UP",...}`: Prometheus could probe it with the blackbox exporter (up/down, latency, HTTP status), and `probe_success` records whether the HTTP probe succeeds. The Prometheus `up` metric records whether the exporter scrape succeeds. A `/metrics` endpoint (e.g. Micrometer `PrometheusMeterRegistry` in Ktor) would add request count and latency histograms per route/status, JVM heap/GC/threads, and custom counters such as announcements created, enabling alerts like error rate > 5% or p95 latency.
 
 ## 4. Problems and fixes
 
