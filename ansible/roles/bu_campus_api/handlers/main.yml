@@ -1,0 +1,11 @@
+---
+# Handlers run once at the end of the play, and only if a task notified them.
+# The order here is the order they run in: reload systemd first, then restart.
+- name: daemon reload
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: restart bu-campus-api
+  ansible.builtin.systemd_service:
+    name: "{{ service_name }}"
+    state: restarted

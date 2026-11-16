@@ -1,0 +1,44 @@
+$ ssh deployer@bu-ansible-target systemctl status bu-campus-api --no-pager
+[0;1;32m●[0m bu-campus-api.service - Better University Campus API 1.1.0
+     Loaded: loaded (/etc/systemd/system/bu-campus-api.service; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Mon 2026-11-16 04:52:39 UTC; 33s ago
+   Main PID: 2103 (java)
+      Tasks: 32 (limit: 7040)
+     Memory: 107.5M (peak: 117.5M)
+        CPU: 2.366s
+     CGroup: /docker/0ba0aa21036eacbfce5c8e56752df41f92d8fd206daf2f903279d4bebdf2727b/system.slice/bu-campus-api.service
+             └─[0;38;5;245m2103 /usr/bin/java -jar /opt/bu-campus-api/bu-campus-api.jar[0m
+
+$ systemctl is-enabled bu-campus-api
+enabled
+$ ps -p 1 -o pid,comm
+    PID COMMAND
+      1 systemd
+
+$ cat /etc/systemd/system/bu-campus-api.service
+# Ansible managed
+[Unit]
+Description=Better University Campus API 1.1.0
+After=network.target
+
+[Service]
+Type=simple
+User=bu-campus
+Group=bu-campus
+WorkingDirectory=/opt/bu-campus-api
+EnvironmentFile=/etc/default/bu-campus-api
+ExecStart=/usr/bin/java -jar /opt/bu-campus-api/bu-campus-api.jar
+Restart=on-failure
+RestartSec=3
+# Light hardening
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+$ cat /etc/default/bu-campus-api
+# Ansible managed
+PORT=8081
+APP_VERSION=1.1.0
